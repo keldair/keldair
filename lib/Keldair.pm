@@ -57,4 +57,14 @@ sub connect {
     snd("NICK $nick");
 }
 
+sub ban {
+	my ( $channel, $host ) = shift;
+	snd("MODE $channel +b $host");
+}
+
+sub kick {
+	my ( $channel, $nick, $reason ) = shift;
+	snd("KICK $channel $nick :$reason");
+}
+
 1;

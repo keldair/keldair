@@ -9,6 +9,7 @@ use Keldair;
 sub handle_001
 {
     Keldair::snd("JOIN $main::SETTINGS->{'channels'}->{'debug'}");
+    Keldair::snd("JOIN $main::SETTINGS->{'channels'}->{'general'}");
 }
 
 1;
