@@ -14,8 +14,6 @@ use Config::Scoped;
 use Module::Load;
 use Keldair;
 
-our @modules = "Keldair::Numerics::001";
-
 my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
 my $parser = Config::Scoped->new( file => "$Bin/../etc/keldair.conf", )
@@ -27,6 +25,7 @@ our @modules = split( ' ', $SETTINGS->{'general'}->{'modules'} );
 
 foreach my $mod (@modules) {
     load $mod;
+    eval { $mod->_modinit; }
 }
 
 our $sock = IO::Socket::INET->new(

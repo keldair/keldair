@@ -8,46 +8,49 @@ package Keldair;
 
 use strict;
 use warnings;
+use constant {
+	VERSION => '1.0.0-alpha1'
+};
 
 sub snd {
-    my ($text) = shift;
+    my ($text) = @_;
     chomp($text);
     print("SEND: $text\r\n");    #if $verbose;
     send( $main::sock, $text . "\r\n", 0 );
 }
 
 sub msg {
-    my ( $target, $text ) = shift;
+    my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :" . $text );
 }
 
 sub notice {
-    my ( $target, $text ) = shift;
+    my ( $target, $text ) = @_;
     snd( "NOTICE " . $target . " :" . $text );
 }
 
 sub ctcp {
-    my ( $target, $text ) = shift;
+    my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :\001" . $text . "\001" );
 }
 
 sub act {
-    my ( $target, $text ) = shift;
+    my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :\001ACTION " . $text . "\001" );
 }
 
 sub oper {
-    my ( $name, $pass ) = shift;
+    my ( $name, $pass ) = @_;
     snd( 'OPER ' . $name . ' ' . $pass );
 }
 
 sub kill {
-    my ( $target, $msg ) = shift;
+    my ( $target, $msg ) = @_;
     snd("KILL $target :$msg");
 }
 
 sub config {
-    my ( $block, $setting ) = shift;
+    my ( $block, $setting ) = @_;
     return $main::SETTINGS->{$block}->{$setting};
 }
 
@@ -58,12 +61,12 @@ sub connect {
 }
 
 sub ban {
-	my ( $channel, $host ) = shift;
+	my ( $channel, $host ) = @_;
 	snd("MODE $channel +b $host");
 }
 
 sub kick {
-	my ( $channel, $nick, $reason ) = shift;
+	my ( $channel, $nick, $reason ) = @_;
 	snd("KICK $channel $nick :$reason");
 }
 
