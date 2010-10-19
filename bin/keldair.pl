@@ -18,9 +18,11 @@ my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
 our $SETTINGS = Config::JSON->new("$Bin/../etc/keldair.conf") or die("Cannot open config file!\n");
 
-our $modules = $SETTINGS->get("modules");
+my $modref = $SETTINGS->get("modules");
 
-foreach my $mod (@$modules) {
+our @modules = @$modref;
+
+foreach my $mod (@modules) {
     load $mod;
     eval { $mod->_modinit; }
 }
@@ -92,13 +94,11 @@ IRC: while ( $line = <$sock> ) {
     @spacesplit = split( " ", $line );
     $channel = $spacesplit[2];
 
-    #print($command."\n");
-
     # Now, time for some commandish stuff!
 
     my $handler = 'handle_' . lc($command);
 
-    foreach my $cmd (@$modules) {
+    foreach my $cmd (@modules) {
         eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); }
     }
 
