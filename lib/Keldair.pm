@@ -9,7 +9,7 @@ package Keldair;
 use strict;
 use warnings;
 use constant {
-	VERSION => '1.0.0-alpha1'
+	VERSION => '1.0.0-alpha2'
 };
 
 sub snd {
@@ -50,8 +50,9 @@ sub kill {
 }
 
 sub config {
-    my ( $block, $setting ) = @_;
-    return $main::SETTINGS->{$block}->{$setting};
+    my ( $value ) = @_;
+    my $setting = $main::SETTINGS->get($value);
+    return $setting;
 }
 
 sub connect {
