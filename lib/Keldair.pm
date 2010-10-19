@@ -8,9 +8,12 @@ package Keldair;
 
 use strict;
 use warnings;
+use Exporter 'import'; 
 use constant {
-	VERSION => '1.0.0-alpha2'
+	VERSION => '1.0.0-alpha3'
 };
+
+@Keldair::EXPORT_OK = qw(act ban config ctcp kick kill msg notice oper snd);
 
 sub snd {
     my ($text) = @_;
