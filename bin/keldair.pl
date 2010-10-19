@@ -10,31 +10,33 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use IO::Socket;
 use File::Data;
-use Config::Scoped;
+use Config::JSON;
 use Module::Load;
 use Keldair;
 
 my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
-my $parser = Config::Scoped->new( file => "$Bin/../etc/keldair.conf", )
-  or die("Cannot open config file!\n");
+our $SETTINGS = Config::JSON->new("$Bin/../etc/keldair.conf") or die("Cannot open config file!\n");
 
-our $SETTINGS = $parser->parse;
+#our @modules = split( ' ', $SETTINGS->{'general'}->{'modules'} );
 
-our @modules = split( ' ', $SETTINGS->{'general'}->{'modules'} );
+#foreach my $mod (@modules) {
+#    load $mod;
+#    eval { $mod->_modinit; }
+#}
 
-foreach my $mod (@modules) {
-    load $mod;
-    eval { $mod->_modinit; }
-}
+my $host = $SETTINGS->get("server/host");
+my $port = $SETTINGS->get("server/port");
 
 our $sock = IO::Socket::INET->new(
     Proto    => "tcp",
-    PeerAddr => $SETTINGS->{'server'}->{'host'},
-    PeerPort => $SETTINGS->{'server'}->{'port'},
-) or die("Connection failed to $SETTINGS->{'server'}->{'host'}. \n");
+    PeerAddr => $host,
+    PeerPort => $port,
+) or die("Connection failed to $host. \n");
 
-if ( $SETTINGS->{'general'}->{'fork'} =~ /^yes|y|1/i ) {
+my $fork = $SETTINGS->get("fork");
+
+if ( $fork =~ /^yes|y|1/i ) {
     open STDIN,  '/dev/null'   or die("Can't read /dev/null: $!");
     open STDOUT, '>>/dev/null' or die("Can't write to /dev/null: $!");
     open STDERR, '>>/dev/null' or die("Can't write to /dev/null: $!");
@@ -50,10 +52,15 @@ my (
     $channel, $firstword, @spacesplit, @words
 );
 
+my ($user,$real,$nick) = (    $SETTINGS->get("keldair/user"),
+        $SETTINGS->get("keldair/real"),
+            $SETTINGS->get("keldair/nick")
+        );
+
 Keldair::connect(
-    $SETTINGS->{'keldair'}->{'ident'},
-    $SETTINGS->{'keldair'}->{'real'},
-    $SETTINGS->{'keldair'}->{'nick'}
+    $user,
+    $real,
+    $nick
 );
 
 # Ok, I do believe connecting is important, eh? :P
@@ -91,10 +98,9 @@ IRC: while ( $line = <$sock> ) {
 
     my $handler = 'handle_' . lc($command);
 
-    foreach my $cmd (@modules) {
-        eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); }
-
-    }
+#    foreach my $cmd (@modules) {
+#        eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); }
+#    }
 
     if ( $line =~ /^PING :/ ) {
         Keldair::snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
