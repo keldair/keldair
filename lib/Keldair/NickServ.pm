@@ -13,11 +13,13 @@ sub _modinit
 		print("Keldair::NickServ requires Keldair 1.0.0 or above");
 		sleep 2;
 	}
+	my $self = shift;
+	print("$self loaded\n");
 }
 
 sub handle_001
 {
-    Keldair::snd("PRIVMSG NickServ :IDENTIFY $main::SETTINGS->{'keldair'}->{'nspass'}");
+    snd("PRIVMSG NickServ :IDENTIFY ".config("login/nsuser")." ".config("login/nspass"));
 }
 
 1;

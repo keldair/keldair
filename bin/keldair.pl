@@ -18,12 +18,12 @@ my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
 our $SETTINGS = Config::JSON->new("$Bin/../etc/keldair.conf") or die("Cannot open config file!\n");
 
-#our @modules = split( ' ', $SETTINGS->{'general'}->{'modules'} );
+our $modules = $SETTINGS->get("modules");
 
-#foreach my $mod (@modules) {
-#    load $mod;
-#    eval { $mod->_modinit; }
-#}
+foreach my $mod (@$modules) {
+    load $mod;
+    eval { $mod->_modinit; }
+}
 
 my $host = $SETTINGS->get("server/host");
 my $port = $SETTINGS->get("server/port");
@@ -98,9 +98,9 @@ IRC: while ( $line = <$sock> ) {
 
     my $handler = 'handle_' . lc($command);
 
-#    foreach my $cmd (@modules) {
-#        eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); }
-#    }
+    foreach my $cmd (@$modules) {
+        eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); }
+    }
 
     if ( $line =~ /^PING :/ ) {
         Keldair::snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
