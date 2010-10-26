@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair;
+use Keldair qw(snd config);
 
 sub _modinit
 {
@@ -21,5 +21,7 @@ sub handle_001
 {
     snd("PRIVMSG NickServ :IDENTIFY ".config("login/nsuser")." ".config("login/nspass"));
 }
+
+sub handle_notice { }
 
 1;

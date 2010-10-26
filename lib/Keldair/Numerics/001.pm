@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair qw(snd);
+use Keldair qw(snd config);
 
 sub _modinit
 {
@@ -22,9 +22,11 @@ sub handle_001
 	my $chans = config("channels/general");
 	my $join = "JOIN ";
 	foreach my $chan (@$chans) {
-		$join .= $chan;
+		$join .= $chan.',';
 	}
     Keldair::snd("$join");
 }
+
+sub handle_notice { }
 
 1;

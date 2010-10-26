@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair;
+use Keldair qw(kick ban);
 
 sub _modinit
 {
@@ -18,7 +18,7 @@ sub _modinit
 sub handle_privmsg
 {
     my ( $self, $hostmask, $channel, $mtext, $line) = @_;
-        if ($mtext =~ /^(k(\.|\.\..*)|well|.*technoirc.*|\.$|\.\..*|w(a|u)t)/i)
+        if ($mtext =~ /^(k(\.|\.\..*)|well|.*technoirc.*|\.$|\.\..*|w(a|u)t|t )$/i)
         #if ($mtext =~ /^k .*/)
         {
             my ( undef, $to_ban ) = split('@', $hostmask);
