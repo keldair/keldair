@@ -42,7 +42,7 @@ my $fork = $SETTINGS->get("fork");
 if ( $fork =~ /^yes|y|1/i ) {
     open STDIN,  '/dev/null'   or die("Can't read /dev/null: $!");
     open STDOUT, '>>/dev/null' or die("Can't write to /dev/null: $!");
-    open STDERR, '>>'.$Bin.'../var/error.log' or die("Can't write to $Bin/../var/error.log: $!");
+    open STDERR, '>>/dev/null' or die("Can't write to /dev/null: $!");
     my $pid = fork;
 
     unless ( $pid == 0 ) {

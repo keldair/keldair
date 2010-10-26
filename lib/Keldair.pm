@@ -11,15 +11,15 @@ use warnings;
 use Exporter 'import';
 use Module::Load;
 use constant {
-    VERSIONSTRING => '1.0.1-alpha1',
+    VERSIONSTRING => '1.0.1-alpha2',
     VERSION       => 1,
     SUBVERSION    => 0,
     REVISION      => 1,
     RELEASESTAGE  => 'alpha',
-    RELEASE       => 1
+    RELEASE       => 2
 };
 
-load 'Keldair::Protocol::' . config('protocol');
+#load 'Keldair::Protocol::' . config('protocol');
 
 # Note for future maintainers:
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
@@ -40,6 +40,59 @@ sub config {
     my ($value) = @_;
     my $setting = $main::SETTINGS->get($value);
     return $setting;
+}
+
+sub msg {
+    my ( $target, $text ) = @_;
+    snd( "PRIVMSG " . $target . " :" . $text );
+}
+
+sub notice {
+    my ( $target, $text ) = @_;
+    snd( "NOTICE " . $target . " :" . $text );
+}
+
+sub ctcp {
+    my ( $target, $text ) = @_;
+    snd( "PRIVMSG " . $target . " :\001" . $text . "\001" );
+}
+
+sub act {
+    my ( $target, $text ) = @_;
+    snd( "PRIVMSG " . $target . " :\001ACTION " . $text . "\001" );
+}
+
+sub oper {
+    my ( $name, $pass ) = @_;
+    snd( 'OPER ' . $name . ' ' . $pass );
+}
+
+sub kill {
+    my ( $target, $msg ) = @_;
+    snd("KILL $target :$msg");
+}
+
+sub connect {
+    my ( $ident, $gecos, $nick ) = @_;
+
+    #snd("CAP LS");
+    snd("USER $ident * * :$gecos");
+    snd("NICK $nick");
+}
+
+sub ban {
+    my ( $channel, $host ) = @_;
+    snd("MODE $channel +b $host");
+}
+
+sub kick {
+    my ( $channel, $nick, $reason ) = @_;
+    snd("KICK $channel $nick :$reason");
+}
+
+sub mode {
+    my ( $target, $modes ) = @_;
+    snd("MODE $target $modes");
 }
 
 1;
