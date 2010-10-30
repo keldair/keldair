@@ -37,7 +37,7 @@ our $sock = IO::Socket::INET->new(
     PeerPort => $port,
 ) or die("Connection failed to $host. \n");
 
-my $fork = $SETTINGS->get("fork");
+my $fork = $SETTINGS->get("debug/fork");
 
 if ( $fork =~ /^yes|y|1/i ) {
     open STDIN,  '/dev/null'   or die("Can't read /dev/null: $!");

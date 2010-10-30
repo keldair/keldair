@@ -8,15 +8,16 @@ package Keldair;
 
 use strict;
 use warnings;
+use diagnostics;
 use Exporter 'import';
 use Module::Load;
 use constant {
-    VERSIONSTRING => '1.0.1-alpha2',
+    VERSIONSTRING => '1.0.1',
     VERSION       => 1,
     SUBVERSION    => 0,
     REVISION      => 1,
-    RELEASESTAGE  => 'alpha',
-    RELEASE       => 2
+    RELEASESTAGE  => '',
+    RELEASE       => ''
 };
 
 #load 'Keldair::Protocol::' . config('protocol');
@@ -32,7 +33,7 @@ use constant {
 sub snd {
     my ($text) = @_;
     chomp($text);
-    print("SEND: $text\r\n");    #if $verbose;
+    print("SEND: $text\r\n") if config('debug/verbose') == 1;
     send( $main::sock, $text . "\r\n", 0 );
 }
 
@@ -74,8 +75,9 @@ sub kill {
 
 sub connect {
     my ( $ident, $gecos, $nick ) = @_;
+    my $pass = config('server/pass');
 
-    #snd("CAP LS");
+	snd("PASS $pass") if defined($pass);
     snd("USER $ident * * :$gecos");
     snd("NICK $nick");
 }
