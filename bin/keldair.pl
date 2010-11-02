@@ -6,6 +6,7 @@
 
 use strict;
 use warnings;
+use diagnostics;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use IO::Socket;
@@ -31,11 +32,23 @@ foreach my $mod (@modules) {
 my $host = $SETTINGS->get("server/host");
 my $port = $SETTINGS->get("server/port");
 
-our $sock = IO::Socket::INET->new(
-    Proto    => "tcp",
-    PeerAddr => $host,
-    PeerPort => $port,
-) or die("Connection failed to $host. \n");
+my $ssl = $SETTINGS->get("server/ssl");
+
+if ($ssl =~ /^y.*/) {
+	use IO::Socket::SSL;
+	our $sock = IO::Socket::SSL->new(
+		Proto	 => "tcp",
+		PeerAddr => $host,
+		PeerPort => $port,
+	) or die("Connection failed to $host. \n");
+}
+else {
+    our $sock = IO::Socket::INET->new(
+        Proto    => "tcp",
+        PeerAddr => $host,
+        PeerPort => $port,
+    ) or die("Connection failed to $host. \n");
+}
 
 my $fork = $SETTINGS->get("debug/fork");
 
