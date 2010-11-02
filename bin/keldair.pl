@@ -35,12 +35,12 @@ my $port = $SETTINGS->get("server/port");
 my $ssl = $SETTINGS->get("server/ssl");
 
 if ($ssl =~ /^y.*/) {
-	use IO::Socket::SSL;
+	require IO::Socket::SSL;
 	our $sock = IO::Socket::SSL->new(
 		Proto	 => "tcp",
 		PeerAddr => $host,
 		PeerPort => $port,
-	) or die("Connection failed to $host. \n");
+	) or die("Connection failed to $host: $!\n");
 }
 else {
     our $sock = IO::Socket::INET->new(
