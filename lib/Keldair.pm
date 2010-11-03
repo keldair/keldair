@@ -32,9 +32,9 @@ our (@modules,$sock,$SETTINGS);
 # Remember to allow anything you want to call in modules.
 
 sub new {
-    my $self = shift
+    my $self = shift;
     my ( $config ) = @_;
-    $SETTINGS = Config::JSON->new("$Bin/../etc/keldair.conf") or die("Cannot open config file!\n");
+    $SETTINGS = Config::JSON->new($config) or die("Cannot open config file!\n");
     my $modref = $SETTINGS->get("modules");
     my @tmp = @$modref;
     foreach my $mod (@tmp) {
