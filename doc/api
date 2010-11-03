@@ -44,6 +44,8 @@ Hooks:
     Keldair offers the following hooks, which are created as subroutines in the Keldair module:
         * handle_<raw IRC command>
         * cmd_< !command name>
+        * on_connect
+        * on_disconnect
     The handle_ hooks are used to hook to a raw IRC command (i.e., PRIVMSG). The name of the subroutine starts with handle_, 
     and ends with an all lowercase version of the IRC command being hooked to; for example, to handle PRIVMSG:
         sub handle_privmsg { }

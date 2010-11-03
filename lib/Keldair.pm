@@ -25,7 +25,7 @@ use constant {
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
 
 @Keldair::EXPORT_OK =
-  qw(act ban config ctcp kick kill mode msg notice oper snd);
+  qw(modlist modload act ban config ctcp kick kill mode msg notice oper snd);
 
 our ( @modules, $sock, $SETTINGS );
 
@@ -40,10 +40,11 @@ sub new {
     foreach my $mod (@tmp) {
         $self->modload($mod);
     }
-    $self->connect( config('server/host'), config('server/port') );
+    push(@modules, 'main');
+    $self->_connect( config('server/host'), config('server/port') );
 }
 
-sub connect {
+sub _connect {
     my $self = shift;
     my ( $host, $port ) = @_;
     if ( $self->config('server/ssl') =~ /^y.*/ ) {
@@ -69,7 +70,66 @@ sub connect {
     $self->_loop;
 }
 
-sub _connect {
+sub _loop {
+    my ( $line, $nickname, $command, $mtext, $hostmask,
+    $channel, $firstword, @spacesplit, @words );
+while ( $line = <$sock> ) {
+
+    undef $nickname;
+    undef $command;
+    undef $mtext;
+    undef $hostmask;
+
+    chomp($line);
+    chomp($line);
+
+    # Hey, let's print the line too!
+    print( $line. "\r\n" ) if config('debug/verbose') == 1;
+    
+    $hostmask = substr( $line, index( $line, ":" ) );
+    $mtext = substr( $line, index( $line, ":", index( $line, ":" ) + 1 ) + 1 );
+    ( $hostmask, $command ) =
+      split( " ", substr( $line, index( $line, ":" ) + 1 ) );
+    ( $nickname, undef ) = split( "!", $hostmask );
+    @spacesplit = split( " ", $line );
+    $channel = $spacesplit[2];
+
+    my $handler = 'handle_' . lc($command);
+
+    foreach my $cmd (@modules) {
+        eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); };
+    }
+    
+    if ($command eq 'PRIVMSG') {
+		my $cmdchar = config('cmdchar');
+		if ($mtext =~ /^$cmdchar/) {
+			my $text = substr($mtext, length($cmdchar));
+			my @parv = split(' ', $text);
+			my $handler = 'command_' . lc($parv[0]);
+			my (%user, $garbage);
+			($user{'nick'}, $garbage) = split('!', $hostmask);
+			($user{'ident'},$user{'host'}) = split('@', $garbage);
+			foreach my $cmd (@modules) {
+				eval { $cmd->$handler( @parv, $channel, %user, $mtext ); };
+			}
+		}
+	}
+    elsif ($command eq '001') {
+                foreach my $cmd (@modules) {
+				eval { $cmd->on_connect; };
+			}
+        }
+
+    if ( $line =~ /^PING :/ ) {
+        snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
+    }
+}
+    foreach my $cmd (@modules) {
+		eval { $cmd->on_disconnect; };
+	}
+}
+
+sub connect {
     my ( $ident, $gecos, $nick ) = @_;
     my $pass = config('server/pass');
 
