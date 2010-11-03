@@ -1,0 +1,50 @@
+                                                          
+_|                  _|        _|            _|            
+_|  _|      _|_|    _|    _|_|_|    _|_|_|      _|  _|_|  
+_|_|      _|_|_|_|  _|  _|    _|  _|    _|  _|  _|_|      
+_|  _|    _|        _|  _|    _|  _|    _|  _|  _|        
+_|    _|    _|_|_|  _|    _|_|_|    _|_|_|  _|  _|        
+                                                          
+                                                         
+Keldair API documentation:
+-------------------------
+* Connecting
+    * Keldair::new
+    * Keldair::connect
+* Module management
+    * Keldair::modload
+    * Keldair::modlist
+    * Keldair::modunload
+* Config management
+    * Keldair::config
+* IRC commands
+    * Keldair::snd
+    * Keldair::msg
+    * Keldair::notice
+    * Keldair::ctcp
+    * Keldair::act
+    * Keldair::oper
+    * Keldair::kill
+    * Keldair::ban
+    * Keldair::kick
+    * Keldair::mode
+-------------------------
+
+Prerequisits:
+    Keldair requires use of a JSON-formatted configuration file. (Patches to support multiple formats willingly accepted!)
+
+Exported subroutines:
+    Keldair::modload, Keldair::modlist, Keldair::snd, Keldair::msg, Keldair::notice, Keldair::ctcp, Keldair::act, Keldair::oper,
+    Keldair::kill, Keldair::ban, Keldair::kick, Keldair::mode.
+
+    These commands can be imported via 'use Keldair qw(snd msg whatever_else_you_want);'
+    They then can be called via 'msg(whatever);' instead of 'Keldair::msg(whatever);'
+
+Hooks:
+    Keldair offers the following hooks, which are created as subroutines in the Keldair module:
+        * handle_<raw IRC command>
+        * cmd_< !command name>
+    The handle_ hooks are used to hook to a raw IRC command (i.e., PRIVMSG). The name of the subroutine starts with handle_, 
+    and ends with an all lowercase version of the IRC command being hooked to; for example, to handle PRIVMSG:
+        sub handle_privmsg { }
+
