@@ -14,6 +14,7 @@ Keldair API documentation:
 * Module management
     * Keldair::modload
     * Keldair::modlist
+    * Keldair::modreload
     * Keldair::modunload
 * Config management
     * Keldair::config
@@ -49,4 +50,4 @@ Hooks:
     The handle_ hooks are used to hook to a raw IRC command (i.e., PRIVMSG). The name of the subroutine starts with handle_, 
     and ends with an all lowercase version of the IRC command being hooked to; for example, to handle PRIVMSG:
         sub handle_privmsg { }
-
+    The hooks on_connect and on_disconnect are used for hooking, obviously, to the connection and disconnections.
