@@ -27,15 +27,26 @@ use constant {
 @Keldair::EXPORT_OK =
   qw(act ban config ctcp kick kill mode msg notice oper snd);
 
-our (@modules,$sock);
+our (@modules,$sock,$SETTINGS);
 
 # Remember to allow anything you want to call in modules.
 
+sub new {
+    my $self = shift
+    my ( $config ) = @_;
+    $SETTINGS = Config::JSON->new("$Bin/../etc/keldair.conf") or die("Cannot open config file!\n");
+    my $modref = $SETTINGS->get("modules");
+    my @tmp = @$modref;
+    foreach my $mod (@tmp) {
+        $self->modload($mod);
+    }
+    $self->connect(config('server/host'), config('server/port'));
+}
 
 sub connect {
 	my $self = shift;
 	my ( $host, $port ) = @_;
-	if ($self->config('server/ssl' =~ /^y.*/) {
+	if ($self->config('server/ssl') =~ /^y.*/) {
 	require IO::Socket::SSL;
 	$sock = IO::Socket::SSL->new(
 		Proto	 => "tcp",
@@ -68,19 +79,26 @@ sub _connect {
 #---------------------------------------------
 
 sub modload {
-	my ($module) = @_;
-	load $module;
-	push (@modules, $module);
+	my ($mod) = $_[0];
+    eval { load $mod; };
+    eval { $mod->_modinit; };
+    push (@modules, $mod);
 }
 
-sub modunload {
-	my ($module) = @_;
-	no $module;
-	@modules = grep{!/^$module$/}
-}
+#sub modunload {
+	#my ($module) = $_[0];
+	#no $module;
+	#@modules = grep{!/^$module$/}
+#}
 
 sub modlist {
 	return @modules;
+}
+
+sub config {
+    my ($value) = @_;
+    my $setting = $SETTINGS->get($value);
+    return $setting;
 }
 
 #------------------------
@@ -92,12 +110,6 @@ sub snd {
     chomp($text);
     print("SEND: $text\r\n") if config('debug/verbose') == 1;
     send( $sock, $text . "\r\n", 0 );
-}
-
-sub config {
-    my ($value) = @_;
-    my $setting = $main::SETTINGS->get($value);
-    return $setting;
 }
 
 sub msg {
