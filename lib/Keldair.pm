@@ -79,6 +79,10 @@ sub modunload {
 	@modules = grep{!/^$module$/}
 }
 
+sub modlist {
+	return @modules;
+}
+
 #------------------------
 # IRC commands only here.
 #------------------------
