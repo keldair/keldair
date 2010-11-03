@@ -9,6 +9,7 @@ package Keldair;
 use strict;
 use warnings;
 use diagnostics;
+use IO::Socket;
 use Exporter 'import';
 use Module::Load;
 use constant {
@@ -62,9 +63,26 @@ sub _connect {
     snd("NICK $nick");
 }
 
-#--------------------------------------------
-#Below here, only the API commands are shown.
-#--------------------------------------------
+#---------------------------------------------
+# Below here, only the API commands are shown.
+#---------------------------------------------
+
+sub modload {
+	my ($module) = @_;
+	load $module;
+	push (@modules, $module);
+}
+
+sub modunload {
+	my ($module) = @_;
+	no $module;
+	@modules = grep{!/^$module$/}
+}
+
+#------------------------
+# IRC commands only here.
+#------------------------
+
 sub snd {
     my ($text) = @_;
     chomp($text);
