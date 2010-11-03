@@ -91,7 +91,7 @@ sub snd {
     my ($text) = @_;
     chomp($text);
     print("SEND: $text\r\n") if config('debug/verbose') == 1;
-    send( $main::sock, $text . "\r\n", 0 );
+    send( $sock, $text . "\r\n", 0 );
 }
 
 sub config {
