@@ -27,49 +27,53 @@ use constant {
 @Keldair::EXPORT_OK =
   qw(act ban config ctcp kick kill mode msg notice oper snd);
 
-our (@modules,$sock,$SETTINGS);
+our ( @modules, $sock, $SETTINGS );
 
 # Remember to allow anything you want to call in modules.
 
 sub new {
     my $self = shift;
-    my ( $config ) = @_;
+    my ($config) = @_;
     $SETTINGS = Config::JSON->new($config) or die("Cannot open config file!\n");
     my $modref = $SETTINGS->get("modules");
-    my @tmp = @$modref;
+    my @tmp    = @$modref;
     foreach my $mod (@tmp) {
         $self->modload($mod);
     }
-    $self->connect(config('server/host'), config('server/port'));
+    $self->connect( config('server/host'), config('server/port') );
 }
 
 sub connect {
-	my $self = shift;
-	my ( $host, $port ) = @_;
-	if ($self->config('server/ssl') =~ /^y.*/) {
-	require IO::Socket::SSL;
-	$sock = IO::Socket::SSL->new(
-		Proto	 => "tcp",
-		PeerAddr => $host,
-		PeerPort => $port,
-	) or die("Connection failed to $host: $!\n");
-}
-else {
-    $sock = IO::Socket::INET->new(
-        Proto    => "tcp",
-        PeerAddr => $host,
-        PeerPort => $port,
-    ) or die("Connection failed to $host. \n");
-}
-$self->_connect($self->config('keldair/user'), $self->config('keldair/real'), $self->config('keldair/nick') );
-$self->_loop;
+    my $self = shift;
+    my ( $host, $port ) = @_;
+    if ( $self->config('server/ssl') =~ /^y.*/ ) {
+        require IO::Socket::SSL;
+        $sock = IO::Socket::SSL->new(
+            Proto    => "tcp",
+            PeerAddr => $host,
+            PeerPort => $port,
+        ) or die("Connection failed to $host: $!\n");
+    }
+    else {
+        $sock = IO::Socket::INET->new(
+            Proto    => "tcp",
+            PeerAddr => $host,
+            PeerPort => $port,
+        ) or die("Connection failed to $host. \n");
+    }
+    $self->_connect(
+        $self->config('keldair/user'),
+        $self->config('keldair/real'),
+        $self->config('keldair/nick')
+    );
+    $self->_loop;
 }
 
 sub _connect {
     my ( $ident, $gecos, $nick ) = @_;
     my $pass = config('server/pass');
 
-	snd("PASS $pass") if defined($pass);
+    snd("PASS $pass") if defined($pass);
     snd("USER $ident * * :$gecos");
     snd("NICK $nick");
 }
@@ -79,20 +83,20 @@ sub _connect {
 #---------------------------------------------
 
 sub modload {
-	my ($mod) = $_[0];
+    my ($mod) = $_[0];
     eval { load $mod; };
     eval { $mod->_modinit; };
-    push (@modules, $mod);
+    push( @modules, $mod );
 }
 
 #sub modunload {
-	#my ($module) = $_[0];
-	#no $module;
-	#@modules = grep{!/^$module$/}
+#my ($module) = $_[0];
+#no $module;
+#@modules = grep{!/^$module$/}
 #}
 
 sub modlist {
-	return @modules;
+    return @modules;
 }
 
 sub config {
