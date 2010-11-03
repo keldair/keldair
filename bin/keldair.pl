@@ -25,7 +25,7 @@ my $modref = $SETTINGS->get("modules");
 our @modules = @$modref;
 
 foreach my $mod (@modules) {
-    load $mod;
+    eval { load $mod; };
     eval { $mod->_modinit; };
 }
 
@@ -34,16 +34,18 @@ my $port = $SETTINGS->get("server/port");
 
 my $ssl = $SETTINGS->get("server/ssl");
 
+our $sock;
+
 if ($ssl =~ /^y.*/) {
 	require IO::Socket::SSL;
-	our $sock = IO::Socket::SSL->new(
+	$sock = IO::Socket::SSL->new(
 		Proto	 => "tcp",
 		PeerAddr => $host,
 		PeerPort => $port,
 	) or die("Connection failed to $host: $!\n");
 }
 else {
-    our $sock = IO::Socket::INET->new(
+    $sock = IO::Socket::INET->new(
         Proto    => "tcp",
         PeerAddr => $host,
         PeerPort => $port,

@@ -12,15 +12,13 @@ use diagnostics;
 use Exporter 'import';
 use Module::Load;
 use constant {
-    VERSIONSTRING => '1.0.1',
-    VERSION       => 1,
+    VERSIONSTRING => '2.0.0-alpha1',
+    VERSION       => 2,
     SUBVERSION    => 0,
-    REVISION      => 1,
-    RELEASESTAGE  => '',
-    RELEASE       => ''
+    REVISION      => 0,
+    RELEASESTAGE  => 'alpha',
+    RELEASE       => '1'
 };
-
-#load 'Keldair::Protocol::' . config('protocol');
 
 # Note for future maintainers:
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
@@ -28,8 +26,45 @@ use constant {
 @Keldair::EXPORT_OK =
   qw(act ban config ctcp kick kill mode msg notice oper snd);
 
+our (@modules,$sock);
+
 # Remember to allow anything you want to call in modules.
 
+
+sub connect {
+	my $self = shift;
+	my ( $host, $port ) = @_;
+	if ($self->config('server/ssl' =~ /^y.*/) {
+	require IO::Socket::SSL;
+	$sock = IO::Socket::SSL->new(
+		Proto	 => "tcp",
+		PeerAddr => $host,
+		PeerPort => $port,
+	) or die("Connection failed to $host: $!\n");
+}
+else {
+    $sock = IO::Socket::INET->new(
+        Proto    => "tcp",
+        PeerAddr => $host,
+        PeerPort => $port,
+    ) or die("Connection failed to $host. \n");
+}
+$self->_connect($self->config('keldair/user'), $self->config('keldair/real'), $self->config('keldair/nick') );
+$self->_loop;
+}
+
+sub _connect {
+    my ( $ident, $gecos, $nick ) = @_;
+    my $pass = config('server/pass');
+
+	snd("PASS $pass") if defined($pass);
+    snd("USER $ident * * :$gecos");
+    snd("NICK $nick");
+}
+
+#--------------------------------------------
+#Below here, only the API commands are shown.
+#--------------------------------------------
 sub snd {
     my ($text) = @_;
     chomp($text);
@@ -71,15 +106,6 @@ sub oper {
 sub kill {
     my ( $target, $msg ) = @_;
     snd("KILL $target :$msg");
-}
-
-sub connect {
-    my ( $ident, $gecos, $nick ) = @_;
-    my $pass = config('server/pass');
-
-	snd("PASS $pass") if defined($pass);
-    snd("USER $ident * * :$gecos");
-    snd("NICK $nick");
 }
 
 sub ban {
