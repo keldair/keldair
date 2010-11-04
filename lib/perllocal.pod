@@ -1,0 +1,616 @@
+=head2 Wed Nov  3 22:11:48 2010: C<Module> L<ExtUtils::MakeMaker|ExtUtils::MakeMaker>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 6.56>
+
+=item *
+
+C<EXE_FILES: bin/instmodsh>
+
+=back
+
+=head2 Wed Nov  3 22:11:56 2010: C<Module> L<File::Remove|File::Remove>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.42>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:11:58 2010: C<Module> L<Test::Object|Test::Object>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.07>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:12:22 2010: C<Module> L<Test::SubCalls|Test::SubCalls>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.09>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:12:26 2010: C<Module> L<IO::String|IO::String>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.08>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:12:29 2010: C<Module> L<Class::Inspector|Class::Inspector>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.24>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:13:26 2010: C<Module> L<PPI|PPI>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.213>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:13:35 2010: C<Module> L<Devel::Declare|Devel::Declare>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.006000>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:17:24 2010: C<Module> L<B::Utils|B::Utils>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.11>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:17:35 2010: C<Module> L<B::Hooks::OP::Check::EntersubForCV|B::Hooks::OP::Check::EntersubForCV>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.06>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:17:38 2010: C<Module> L<Devel::BeginLift|Devel::BeginLift>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.001003>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:17:43 2010: C<Module> L<Readonly|Readonly>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.03>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:18:17 2010: C<Module> L<Test::LeakTrace|Test::LeakTrace>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.13>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:18:21 2010: C<Module> L<Hash::FieldHash|Hash::FieldHash>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.10>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:18:34 2010: C<Module> L<autobox|autobox>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.71>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:18:45 2010: C<Module> L<Taint::Util|Taint::Util>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.08>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:19:20 2010: C<Module> L<autovivification|autovivification>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.06>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:20:14 2010: C<Module> L<IPC::System::Simple|IPC::System::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.21>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:20:39 2010: C<Module> L<Exception::Class|Exception::Class>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.32>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:20:44 2010: C<Module> L<Hash::Merge::Simple|Hash::Merge::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.05>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:21:26 2010: C<Module> L<B::Hooks::OP::Annotation|B::Hooks::OP::Annotation>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.43>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:21:29 2010: C<Module> L<true|true>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.12>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:21:46 2010: C<Module> L<autobox::Core|autobox::Core>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.2>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:22:04 2010: C<Module> L<Test::Output|Test::Output>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.16>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:22:07 2010: C<Module> L<CLASS|CLASS>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.00>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:22:28 2010: C<Module> L<indirect|indirect>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.23>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:22:33 2010: C<Module> L<Want|Want>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.18>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Nov  3 22:27:20 2010: C<Module> L<Inline|Inline>
+
+=over 4
+
+=item *
+
+C<installed into: /usr/home/alyx/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.46>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+

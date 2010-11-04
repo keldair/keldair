@@ -11,7 +11,9 @@ use warnings;
 use diagnostics;
 use IO::Socket;
 use Exporter 'import';
+use Config::JSON;
 use Module::Load;
+use Method::Signatures;
 use constant {
     VERSIONSTRING => '2.0.0',
     VERSION       => 2,
