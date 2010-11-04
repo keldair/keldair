@@ -11,8 +11,6 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use IO::Socket;
 use File::Data;
-use Config::JSON;
-use Module::Load;
 use Keldair qw(config);
 
 my $rawlog = File::Data->new("$Bin/../var/raw.log");
