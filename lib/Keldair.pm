@@ -86,8 +86,8 @@ sub _loop {
                 my $text = substr( $mtext, length($cmdchar) );
                 my @parv = split( ' ', $text );
                 my $handler = 'command_' . lc( $parv[0] );
-                my ( %user, $garbage );
-                ( $user{'nick'}, $garbage ) = split( '!', $hostmask );
+                my ( %user, $rubbish );
+                ( $user{'nick'}, $rubbish ) = split( '!', $hostmask );
                 ( $user{'ident'}, $user{'host'} ) = split( '@', $garbage );
                 foreach my $cmd (@modules) {
                     eval { $cmd->$handler( @parv, $channel, %user, $mtext ); };
@@ -135,12 +135,13 @@ sub _connect {
 }
 
 sub connect {
+	my $self = "Keldair";
     my ( $ident, $gecos, $nick ) = @_;
     my $pass = config('server/pass');
 
-    snd("PASS $pass") if defined($pass);
-    snd("USER $ident * * :$gecos");
-    snd("NICK $nick");
+    $self->snd("PASS $pass") if defined($pass);
+    $self->snd("USER $ident * * :$gecos");
+    $self->snd("NICK $nick");
 }
 
 #---------------------------------------------
@@ -180,15 +181,20 @@ sub config {
 # IRC commands only here.
 #------------------------
 
-sub snd {
-    my ($text) = @_;
-    chomp($text);
-    print("SEND: $text\r\n") if config('debug/verbose') == 1;
-    send( $sock, $text . "\r\n", 0 );
+#sub snd {
+    #my ($text) = @_;
+    #chomp($text);
+    #print("SEND: $text\r\n") if config('debug/verbose') == 1;
+    #send( $sock, $text . "\r\n", 0 );
+#}
+
+method snd ($text) {
+	chomp($text);
+	print("SEND: $text\r\n") if config('debug/verbose') == 1;
+	send( $sock, $text . "\r\n", 0);
 }
 
-sub msg {
-    my ( $target, $text ) = @_;
+method msg ($target, $text) {
     snd( "PRIVMSG " . $target . " :" . $text );
 }
 
