@@ -15,6 +15,8 @@ use Keldair qw(config);
 
 my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
+my $irc = 'Keldair';
+
 Keldair->new("$Bin/../etc/keldair.conf");
 
 my $fork = config("debug/fork");
