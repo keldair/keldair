@@ -19,7 +19,7 @@ my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
 Keldair->new("$Bin/../etc/keldair.conf");
 
-my $fork = $SETTINGS->get("debug/fork");
+my $fork = config("debug/fork");
 
 if ( $fork =~ /^yes|y|1/i ) {
     open STDIN,  '/dev/null'   or die("Can't read /dev/null: $!");
