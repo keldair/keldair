@@ -154,17 +154,17 @@ sub modload {
     push( @modules, $mod );
 }
 
-sub modreload {
-    my ($mod) = $_[0];
-    modunload($mod);
-    modload($mod);
-}
+#sub modreload {
+    #my ($mod) = $_[0];
+    #modunload($mod);
+    #modload($mod);
+#}
 
-sub modunload {
-    my ($module) = $_[0];
-    no $module;
-    @modules = grep{!/^$module$/};
-}
+#sub modunload {
+    #my ($module) = $_[0];
+    #no $module;
+    #@modules = grep{!/^$module$/};
+#}
 
 sub modlist {
     return @modules;
