@@ -223,13 +223,37 @@ sub ban {
 }
 
 sub kick {
-    my ( $channel, $nick, $reason ) = @_;
-    snd("KICK $channel $nick :$reason");
+    my ( $channel, $target, $reason ) = @_;
+    snd("KICK $channel $target :$reason");
 }
 
 sub mode {
     my ( $target, $modes ) = @_;
     snd("MODE $target $modes");
+}
+
+sub kill {
+    my ( $target, $reason ) = @_;
+    snd("KILL $target :$reason");
+}
+
+sub topic {
+    my ( $channel, $topic ) = @_;
+    snd("TOPIC $channel :$topic");
+}
+
+sub away {
+    my $reason = @_;
+    snd("AWAY :$reason");
+}
+
+sub back {
+    snd("AWAY");
+}
+
+sub join {
+    my $channel = @_;
+    snd("JOIN $channel");
 }
 
 1;
