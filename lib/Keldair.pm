@@ -33,18 +33,21 @@ our ( @modules, $sock, $SETTINGS );
 
 # Remember to allow anything you want to call in modules.
 
-method new ($config) {
+sub new {
+    my $self = shift;
+    my ($config) = @_;
     $SETTINGS = Config::JSON->new($config) or die("Cannot open config file!\n");
     my $modref = $SETTINGS->get("modules");
     my @tmp    = @$modref;
     foreach my $mod (@tmp) {
-        modload($mod);
+        Keldair::modload($mod);
     }
     push( @modules, 'main' );
-    $self->_connect( config('server/host'), config('server/port') );
+    Keldair::_connect( config('server/host'), config('server/port') );
 }
 
-method _loop {
+
+sub _loop {
     my (
         $line,    $nickname,  $command,    $mtext, $hostmask,
         $channel, $firstword, @spacesplit, @words
@@ -75,6 +78,7 @@ method _loop {
 
         foreach my $cmd (@modules) {
             eval { $cmd->$handler( $hostmask, $channel, $mtext, $line ); };
+            print("Error: $!\n") if $!;
         }
 
         if ( $command eq 'PRIVMSG' ) {
@@ -85,7 +89,7 @@ method _loop {
                 my $handler = 'command_' . lc( $parv[0] );
                 my ( %user, $rubbish );
                 ( $user{'nick'}, $rubbish ) = split( '!', $hostmask );
-                ( $user{'ident'}, $user{'host'} ) = split( '@', $garbage );
+                ( $user{'ident'}, $user{'host'} ) = split( '@', $rubbish );
                 foreach my $cmd (@modules) {
                     eval { $cmd->$handler( @parv, $channel, %user, $mtext ); };
                 }
@@ -106,8 +110,9 @@ method _loop {
     }
 }
 
-method _connect ($host, $port) {
-    if ( config('server/ssl') =~ /^y.*/ ) {
+sub _connect {
+    my ( $host, $port ) = @_;
+    if ( Keldair::config('server/ssl') =~ /^y.*/ ) {
         require IO::Socket::SSL;
         $sock = IO::Socket::SSL->new(
             Proto    => "tcp",
@@ -123,15 +128,18 @@ method _connect ($host, $port) {
         ) or die("Connection failed to $host. \n");
     }
     Keldair::connect(
-        config('keldair/user'),
-        config('keldair/real'),
-        config('keldair/nick')
+        Keldair::config('keldair/user'),
+        Keldair::config('keldair/real'),
+        Keldair::config('keldair/nick')
     );
-    $self->_loop;
+    Keldair::_loop;
 }
 
-method connect ($ident, $gecos, $nick) {
+sub connect {
+    my $self = "Keldair";
+    my ( $ident, $gecos, $nick ) = @_;
     my $pass = config('server/pass');
+
     $self->snd("PASS $pass") if defined($pass);
     $self->snd("USER $ident * * :$gecos");
     $self->snd("NICK $nick");
@@ -141,27 +149,31 @@ method connect ($ident, $gecos, $nick) {
 # Below here, only the API commands are shown.
 #---------------------------------------------
 
-func modload ($mod) {
+sub modload {
+    my ($mod) = $_[0];
     eval { load $mod; };
     eval { $mod->_modinit; };
     push( @modules, $mod );
 }
 
-func modreload ($mod) {
+sub modreload {
+    my ($mod) = $_[0];
     modunload($mod);
     modload($mod);
 }
 
-func modunload ($mod) {
-	no $mod;
-	@modules = grep{!/^$mod$/}
-}
+#sub modunload {
+#my ($module) = $_[0];
+#no $module;
+#@modules = grep{!/^$module$/}
+#}
 
-func modlist {
+sub modlist {
     return @modules;
 }
 
-func config ($value) {
+sub config {
+    my ($value) = @_;
     my $setting = $SETTINGS->get($value);
     return $setting;
 }
@@ -170,45 +182,55 @@ func config ($value) {
 # IRC commands only here.
 #------------------------
 
-func snd ($text) {
-	chomp($text);
-	print("SEND: $text\r\n") if config('debug/verbose') == 1;
-	send( $sock, $text . "\r\n", 0);
+sub snd {
+    my ($text) = @_;
+    chomp($text);
+    print("SEND: $text\r\n");
+    send( $sock, $text . "\r\n", 0 );
 }
 
-func msg ($target, $text) {
+sub msg {
+    my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :" . $text );
 }
 
-func notice ($targetl $text) {
+sub notice {
+    my ( $target, $text ) = @_;
     snd( "NOTICE " . $target . " :" . $text );
 }
 
-func ctcp ($target, $text) {
+sub ctcp {
+    my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :\001" . $text . "\001" );
 }
 
-func act ($target, $text) {
+sub act {
+    my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :\001ACTION " . $text . "\001" );
 }
 
-func oper ($name, $pass) {
+sub oper {
+    my ( $name, $pass ) = @_;
     snd( 'OPER ' . $name . ' ' . $pass );
 }
 
-func kill ($target, $msg) {
+sub kill {
+    my ( $target, $msg ) = @_;
     snd("KILL $target :$msg");
 }
 
-func ban ($channel, $host) {
+sub ban {
+    my ( $channel, $host ) = @_;
     snd("MODE $channel +b $host");
 }
 
-func kick ($channel, $nick, $reason) {
+sub kick {
+    my ( $channel, $nick, $reason ) = @_;
     snd("KICK $channel $nick :$reason");
 }
 
-sub mode ($target, $modes) {
+sub mode {
+    my ( $target, $modes ) = @_;
     snd("MODE $target $modes");
 }
 
