@@ -14,8 +14,6 @@ Keldair API documentation:
 * Module management
     * Keldair::modload
     * Keldair::modlist
-    * Keldair::modreload
-    * Keldair::modunload
 * Config management
     * Keldair::config
 * IRC commands
