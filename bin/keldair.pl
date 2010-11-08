@@ -1,5 +1,4 @@
-#!/home/alyx/perl -w
-##!/usr/bin/env perl -w
+#!/usr/bin/env perl -w
 
 # keldair.pl - Keldair core file
 # Copyright 2010 Chazz Wolcott <chazz@staticbox.net>
@@ -16,9 +15,7 @@ use Keldair qw(config);
 
 my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
-#my $irc = 'Keldair';
-
-Keldair::new("$Bin/../etc/keldair.conf");
+Keldair->new("$Bin/../etc/keldair.conf");
 
 my $fork = config("debug/fork");
 

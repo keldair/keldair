@@ -11,9 +11,8 @@ use warnings;
 use diagnostics;
 use IO::Socket;
 use Exporter 'import';
-use Config::JSON;
 use Module::Load;
-use Method::Signatures;
+use Config::JSON;
 use constant {
     VERSIONSTRING => '2.0.0',
     VERSION       => 2,
@@ -27,7 +26,7 @@ use constant {
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
 
 @Keldair::EXPORT_OK =
-  qw(modlist modload act ban config ctcp kick kill mode msg notice oper snd);
+qw(modlist modload act ban config ctcp kick kill mode msg notice oper snd);
 
 our ( @modules, $sock, $SETTINGS );
 
@@ -67,9 +66,9 @@ sub _loop {
 
         $hostmask = substr( $line, index( $line, ":" ) );
         $mtext =
-          substr( $line, index( $line, ":", index( $line, ":" ) + 1 ) + 1 );
+        substr( $line, index( $line, ":", index( $line, ":" ) + 1 ) + 1 );
         ( $hostmask, $command ) =
-          split( " ", substr( $line, index( $line, ":" ) + 1 ) );
+        split( " ", substr( $line, index( $line, ":" ) + 1 ) );
         ( $nickname, undef ) = split( "!", $hostmask );
         @spacesplit = split( " ", $line );
         $channel = $spacesplit[2];
@@ -87,9 +86,9 @@ sub _loop {
                 my $text = substr( $mtext, length($cmdchar) );
                 my @parv = split( ' ', $text );
                 my $handler = 'command_' . lc( $parv[0] );
-                my ( %user, $rubbish );
-                ( $user{'nick'}, $rubbish ) = split( '!', $hostmask );
-                ( $user{'ident'}, $user{'host'} ) = split( '@', $rubbish );
+                my ( %user, $garbage );
+                ( $user{'nick'}, $garbage ) = split( '!', $hostmask );
+                ( $user{'ident'}, $user{'host'} ) = split( '@', $garbage );
                 foreach my $cmd (@modules) {
                     eval { $cmd->$handler( @parv, $channel, %user, $mtext ); };
                 }
@@ -136,13 +135,12 @@ sub _connect {
 }
 
 sub connect {
-    my $self = "Keldair";
     my ( $ident, $gecos, $nick ) = @_;
     my $pass = config('server/pass');
 
-    $self->snd("PASS $pass") if defined($pass);
-    $self->snd("USER $ident * * :$gecos");
-    $self->snd("NICK $nick");
+    snd("PASS $pass") if defined($pass);
+    snd("USER $ident * * :$gecos");
+    snd("NICK $nick");
 }
 
 #---------------------------------------------
@@ -162,11 +160,11 @@ sub modreload {
     modload($mod);
 }
 
-#sub modunload {
-#my ($module) = $_[0];
-#no $module;
-#@modules = grep{!/^$module$/}
-#}
+sub modunload {
+    my ($module) = $_[0];
+    no $module;
+    @modules = grep{!/^$module$/};
+}
 
 sub modlist {
     return @modules;
@@ -185,7 +183,7 @@ sub config {
 sub snd {
     my ($text) = @_;
     chomp($text);
-    print("SEND: $text\r\n");
+    print("SEND: $text\r\n") if config('debug/verbose') == 1;
     send( $sock, $text . "\r\n", 0 );
 }
 
