@@ -27,6 +27,11 @@ Keldair API documentation:
     * Keldair::ban
     * Keldair::kick
     * Keldair::mode
+    * Keldair::kill
+    * Keldair::topic
+    * Keldair::away
+    * Keldair::back
+    * Keldair::join
 -------------------------
 
 Prerequisits:
