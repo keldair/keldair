@@ -1,4 +1,4 @@
-package Keldair::NickServ;
+package Keldair::Authen::NickServ;
 
 use strict;
 use warnings;
@@ -19,7 +19,7 @@ sub _modinit
 
 sub handle_001
 {
-    snd("PRIVMSG NickServ :IDENTIFY ".config("login/nsuser")." ".config("login/nspass"));
+    snd("PRIVMSG NickServ :IDENTIFY ".config("auth/user")." ".config("auth/pass"));
 }
 
 sub handle_notice { }
