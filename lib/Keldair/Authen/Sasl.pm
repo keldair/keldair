@@ -62,4 +62,12 @@ sub handle_authenticate {
     }
 }
 
+sub handle_903 {
+    snd("CAP END");
+}
+
+sub handle_904 {
+    snd("CAP END");
+}
+
 1;
