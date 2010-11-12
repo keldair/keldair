@@ -22,6 +22,4 @@ sub handle_001
     snd("PRIVMSG NickServ :IDENTIFY ".config("auth/user")." ".config("auth/pass"));
 }
 
-sub handle_notice { }
-
 1;
