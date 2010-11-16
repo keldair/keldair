@@ -158,6 +158,7 @@ sub connect {
 
     foreach my $cmd (@modules) {
         eval { $cmd->on_preconnect; };
+        print("$!\n") if $!;
     }
     snd("PASS $pass") if defined($pass);
     snd("USER $ident * * :$gecos");

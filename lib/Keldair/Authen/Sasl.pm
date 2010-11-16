@@ -15,10 +15,10 @@ sub on_preconnect {
 
 sub handle_cap {
     my ( $self, $hostmask, $channel, $mtext, $line ) = @_;
-    my ( $subcmd, $caps, $tosend );
+    my ( $tosend );
     if ( $line =~ / LS / ) {
-        if ($line =~ /multi-prefix/i) { $tosend .= ' multi-prefix'; }
-        if ($line =~ /sasl/i)  { { $tosend .= ' sasl'; } }
+        if ($line =~ /multi-prefix/xi) { $tosend .= ' multi-prefix'; }
+        if ($line =~ /sasl/xi)  { { $tosend .= ' sasl'; } }
        # $tosend .= ' multi-prefix' if ( $line =~ /multi-prefix/i );
         #$tosend .= ' sasl'
          # if $line =~ /sasl/i && defined( config('auth/user') );
