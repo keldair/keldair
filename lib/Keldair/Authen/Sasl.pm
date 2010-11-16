@@ -3,10 +3,10 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair qw(snd config);
+#use Keldair qw(snd config);
 
 sub _modinit {
-
+    print(__PACKAGE__." loaded\n");
 }
 
 sub on_preconnect {
@@ -17,10 +17,12 @@ sub handle_cap {
     my ( $self, $hostmask, $channel, $mtext, $line ) = @_;
     my ( $subcmd, $caps, $tosend );
     if ( $line =~ / LS / ) {
-        $tosend .= ' multi-prefix' if ( $line =~ /multi-prefix/i );
-        $tosend .= ' sasl'
-          if $line =~ /sasl/i && defined( config('auth/user') );
-        substr( $tosend, 1 );
+        if ($line =~ /multi-prefix/i) { $tosend .= ' multi-prefix'; }
+        if ($line =~ /sasl/i)  { { $tosend .= ' sasl'; } }
+       # $tosend .= ' multi-prefix' if ( $line =~ /multi-prefix/i );
+        #$tosend .= ' sasl'
+         # if $line =~ /sasl/i && defined( config('auth/user') );
+        #$tosend = s/^ //;
         if ( $tosend eq '' ) {
             snd("CAP END");
         }
@@ -31,6 +33,9 @@ sub handle_cap {
     elsif ( $line =~ / ACK / ) {
         if ( $mtext =~ /sasl/i ) {
             snd("AUTHENTICATE PLAIN");
+        }
+        else {
+            snd("CAP END");
         }
     }
     elsif ( $line =~ / NAK / ) {
