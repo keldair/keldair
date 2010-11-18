@@ -6,6 +6,7 @@
 # $Id$ $Revision$ $HeadURL$ $Date$ $Source$
 
 package Keldair::Parser;
+
 use strict;
 use warnings;
 use Carp qw(carp croak);
@@ -13,7 +14,7 @@ require Exporter;
 use base "Exporter";
 our @EXPORT_OK = qw(parse_irc);
 
-our $VERSION = 1.0.0;
+our $VERSION = 1.1.0;
 
 sub new {
     my $class = shift;
@@ -31,6 +32,16 @@ sub parse {
             'target'  => $3,
             'params'  => $4,
         };
+        if (defined($event->{origin})) {
+            if ($event->{origin} =~ /(.*)!(.*)\@(.*)/xsm) {
+                $event->{origin} = {
+                    'raw' => $event->{origin},
+                    'nick' => $1,
+                    'user' => $2,
+                    'host' => $3
+                };
+            }
+        }
         return $event;
     }
     else {

@@ -16,6 +16,7 @@ use Module::Load;
 use Config::JSON;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
+use Keldair::Parser qw(parse_irc);
 use constant {
     VERSIONSTRING => '2.0.0',
     VERSION       => 2,
@@ -29,7 +30,7 @@ use constant {
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
 
 @Keldair::EXPORT_OK =
-  qw(modlist modload act ban config ctcp kick kill mode msg notice oper snd);
+  qw(act away back ban cjoin config connect ctcp kick mode modlist modload msg notice oper snd topic userkill);
 
 our ( @modules, $sock, $SETTINGS );
 
@@ -45,14 +46,18 @@ sub new {
         Keldair::modload($mod);
     }
     push( @modules, 'main' );
-    Keldair::_connect( config('server/host'), config('server/port') );
+    foreach my $mod (@modules) {
+        eval { $mod->on_startup; };
+    }
+    _connect( config('server/host'), config('server/port') ) or return 0;
+    return 1;
 }
 
 sub _loop {
     my (
         $line,     $nickname, $command,   $mtext,
         $hostmask, $channel,  $firstword, @spacesplit,
-        @words,    $origin,   $target,    $params
+        @words,    $origin,   $target
     );
     while ( $line = <$sock> ) {
 
@@ -61,59 +66,50 @@ sub _loop {
         # Hey, let's print the line too!
         print( '>> ' . $line . "\r\n" );
 
-        if ( $line =~
-            /^(?:\:([^\s]+)\s)?(\w+)\s(?:([^\s\:]+)\s)?(?:\:?(.*))?$/x )
-        {
-            $origin  = $1;
-            $command = $2;
-            $target  = $3;
-            $params  = $4;
-                #if ( $origin =~ /(.*)!(.*)\@(.*)/x ) {
-                 #   $origin = {
-                  #      'hostmask' => $origin,
-                   #     'nick'     => $1,
-                    #    'user'     => $2,
-                     #   'host'     => $3
-                    #};
-               # }
-        }
-        else {
-            ( $command, $params ) = split( ' ', $line );
-        }
+        my $event = parse_irc($line);
 
-     #        $hostmask = substr( $line, index( $line, ":" ) );
-     #        $mtext =
-     #        substr( $line, index( $line, ":", index( $line, ":" ) + 1 ) + 1 );
-     #        ( $hostmask, $command ) =
-     #        split( " ", substr( $line, index( $line, ":" ) + 1 ) );
-     #        ( $nickname, undef ) = split( "!", $hostmask );
-     #        @spacesplit = split( " ", $line );
-     #        $channel = $spacesplit[2];
-
-        my $handler = 'handle_' . lc($command);
+        my $handler = 'handle_' . lc( $event->{command} );
 
         foreach my $cmd (@modules) {
-            eval { $cmd->$handler( $origin, $target, $params, $line ); };
+            eval {
+                $cmd->$handler(
+                    $event->{origin}, $event->{target},
+                    $event->{params}, $line
+                );
+            };
         }
 
-        if ( $command eq 'PRIVMSG' ) {
+        if ( $event->{command} eq 'PRIVMSG' ) {
             my $cmdchar = config('cmdchar');
-            if ( $mtext =~ /^$cmdchar/ix ) {
-                my $text = substr( $params, length($cmdchar) );
+            if ( $event->{params} =~ /^$cmdchar/i ) {
+                my $text = substr( $event->{params}, length($cmdchar) );
                 my @parv = split( ' ', $text );
-                my $handler = 'command_' . lc( $parv[0] );
+                my $cmdhandler = 'command_' . lc( $parv[0] );
                 foreach my $cmd (@modules) {
-                    eval { $cmd->$handler( @parv, $target, $origin, $params ); };
+                    eval {
+                        $cmd->$cmdhandler( $event->{target}, $event->{origin},
+                            $text, @parv );
+                    };
+                }
+            }
+            elsif ( $event->{params} =~ /^\001/x) {
+                my $text = substr($event->{params}, 1);
+                my ($type, undef) = split(' ', $text);
+                my $ctcphandle = 'ctcp_' . lc( $type );
+                foreach my $cmd (@modules) {
+                    eval {
+                        $cmd->$ctcphandle( $event->{origin}, $event->{target}, $text);
+                    }
                 }
             }
         }
-        elsif ( $command eq '001' ) {
+        elsif ( $event->{command} eq '001' ) {
             foreach my $cmd (@modules) {
                 eval { $cmd->on_connect; };
             }
         }
 
-        if ( $line =~ /^PING :/x ) {
+        if ( $line=~ /^PING :/ ) {
             snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
         }
 
@@ -172,9 +168,11 @@ sub connect {
 
 sub modload {
     my ($mod) = @_;
-    #eval { load $mod; }      or cluck("Loading $mod failed\n") and return 0;
-    eval { load $mod; }; print("Err: $!\n") if $!;
-    eval { $mod->_modinit; }; print("Err: $!\n") if $1;
+    eval { load $mod; };
+    print("$mod failed: $!\n") if $!;
+    eval { $mod->modinit; };
+    print( "$mod" . "::modinit failed: $!\n" ) if $!;
+
     #eval { $mod->_modinit; } or cluck("Missing _modinit!")      and return 0;
     push( @modules, $mod );
     return 1;
@@ -230,6 +228,11 @@ sub ctcp {
     my ( $target, $text ) = @_;
     snd( "PRIVMSG " . $target . " :\001" . $text . "\001" );
     return 1;
+}
+
+sub ctcpreply {
+    my ( $target, $text ) = @_;
+    snd("NOTICE $target :\001$text\001");
 }
 
 sub act {
@@ -291,4 +294,4 @@ sub cjoin {
     return 1;
 }
 
-1337*(22/7) <= 9001;
+1337 * ( 22 / 7 ) <= 9001;
