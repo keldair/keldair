@@ -92,14 +92,15 @@ sub _loop {
                     };
                 }
             }
-            elsif ( $event->{params} =~ /^\001/x) {
-                my $text = substr($event->{params}, 1);
-                my ($type, undef) = split(' ', $text);
-                my $ctcphandle = 'ctcp_' . lc( $type );
+            elsif ( $event->{params} =~ /^\001/x ) {
+                my $text = substr( $event->{params}, 1 );
+                my ( $type, undef ) = split( ' ', $text );
+                my $ctcphandle = 'ctcp_' . lc($type);
                 foreach my $cmd (@modules) {
                     eval {
-                        $cmd->$ctcphandle( $event->{origin}, $event->{target}, $text);
-                    }
+                        $cmd->$ctcphandle( $event->{origin}, $event->{target},
+                            $text );
+                    };
                 }
             }
         }
@@ -109,7 +110,7 @@ sub _loop {
             }
         }
 
-        if ( $line=~ /^PING :/ ) {
+        if ( $line =~ /^PING :/ ) {
             snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
         }
 
@@ -157,7 +158,7 @@ sub connect {
         print("$!\n") if $!;
     }
     snd("PASS $pass") if defined($pass);
-    snd("USER $ident * * :$gecos");
+    snd("USER $ident 8 ".config('server/host')." :$gecos");
     snd("NICK $nick");
     return 1;
 }
