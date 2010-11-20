@@ -14,6 +14,7 @@ use IO::Socket;
 use Exporter 'import';
 use Module::Load;
 use Config::JSON;
+use Sys::Hostname;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair::Parser qw(parse_irc);
@@ -158,7 +159,7 @@ sub connect {
         print("$!\n") if $!;
     }
     snd("PASS $pass") if defined($pass);
-    snd("USER $ident 8 ".config('server/host')." :$gecos");
+    snd("USER $ident ".hostname." ".config('server/host')." :$gecos");
     snd("NICK $nick");
     return 1;
 }
