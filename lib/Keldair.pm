@@ -17,9 +17,9 @@ use Config::JSON;
 use Sys::Hostname;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair::Parser qw(parse_irc);
+use Keldair::Core::Parser qw(parse_irc);
 use constant {
-    VERSIONSTRING => '2.0.0',
+    VERSIONSTRING => '2.1.1',
     VERSION       => 2,
     SUBVERSION    => 0,
     REVISION      => 0,
@@ -40,7 +40,8 @@ our ( @modules, $sock, $SETTINGS );
 sub new {
     my $self = shift;
     my ($config) = @_;
-    $SETTINGS = Config::JSON->new($config) or die("Cannot open config file!\n");
+    $SETTINGS = Config::JSON->new($config)
+      or die("Cannot open config file!\n");
     my $modref = $SETTINGS->get("modules");
     my @tmp    = @$modref;
     foreach my $mod (@tmp) {
@@ -50,7 +51,8 @@ sub new {
     foreach my $mod (@modules) {
         eval { $mod->on_startup; };
     }
-    _connect( config('server/host'), config('server/port') ) or return 0;
+    _connect( config('server/host'), config('server/port') ) or
+        croak("Error connecting to server: $!\n");
     return 1;
 }
 
@@ -130,14 +132,14 @@ sub _connect {
             Proto    => "tcp",
             PeerAddr => $host,
             PeerPort => $port,
-        ) or die("Connection failed to $host: $!\n");
+        ) or croak("Connection failed to $host: $!\n");
     }
     else {
         $sock = IO::Socket::INET->new(
             Proto    => "tcp",
             PeerAddr => $host,
             PeerPort => $port,
-        ) or die("Connection failed to $host. \n");
+        ) or croak("Connection failed to $host. \n");
     }
     Keldair::connect(
         Keldair::config('keldair/user'),
@@ -159,7 +161,10 @@ sub connect {
         print("$!\n") if $!;
     }
     snd("PASS $pass") if defined($pass);
-    snd("USER $ident ".hostname." ".config('server/host')." :$gecos");
+    snd(    "USER $ident "
+          . hostname . " "
+          . config('server/host')
+          . " :$gecos" );
     snd("NICK $nick");
     return 1;
 }
@@ -216,19 +221,19 @@ sub snd {
 
 sub msg {
     my ( $target, $text ) = @_;
-    snd( "PRIVMSG " . $target . " :" . $text );
+    snd("PRIVMSG $target :$text");
     return 1;
 }
 
 sub notice {
     my ( $target, $text ) = @_;
-    snd( "NOTICE " . $target . " :" . $text );
+    snd("NOTICE $target :$text");
     return 1;
 }
 
 sub ctcp {
     my ( $target, $text ) = @_;
-    snd( "PRIVMSG " . $target . " :\001" . $text . "\001" );
+    snd( "PRIVMSG $target :\001$text\001");
     return 1;
 }
 
@@ -258,6 +263,12 @@ sub userkill {
 sub ban {
     my ( $channel, $host ) = @_;
     snd("MODE $channel +b $host");
+    return 1;
+}
+
+sub unban {
+    my ( $channel, $host ) = @_;
+    snd("MODE $channel -b $host");
     return 1;
 }
 
