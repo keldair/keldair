@@ -23,15 +23,16 @@ Keldair API documentation:
     * Keldair::ctcp
     * Keldair::act
     * Keldair::oper
-    * Keldair::kill
+    * Keldair::userkill
     * Keldair::ban
+    * Keldair::unban
     * Keldair::kick
     * Keldair::mode
     * Keldair::kill
     * Keldair::topic
     * Keldair::away
     * Keldair::back
-    * Keldair::join
+    * Keldair::cjoin
 -------------------------
 
 Prerequisits:
@@ -47,10 +48,26 @@ Exported subroutines:
 Hooks:
     Keldair offers the following hooks, which are created as subroutines in the Keldair module:
         * handle_<raw IRC command>
-        * cmd_< !command name>
+        * cmd_< !command name> (Note: Does not correctly function at the moment.)
+        * ctcp_<CTCP handler> (Also does not work right.)
         * on_connect
         * on_disconnect
     The handle_ hooks are used to hook to a raw IRC command (i.e., PRIVMSG). The name of the subroutine starts with handle_, 
     and ends with an all lowercase version of the IRC command being hooked to; for example, to handle PRIVMSG:
         sub handle_privmsg { }
     The hooks on_connect and on_disconnect are used for hooking, obviously, to the connection and disconnections.
+
+Timers:
+    Keldair offers timers, via Keldair::Core::Timer. To use timers, you need to 'use Keldair::Core::Timer' in your module. 
+    Then, simply call:
+        Keldair::Core::Timer->new(time to sleep in seconds, \&subroutine);
+    You could also replace the \&sub with sub { whatever }. 
+Parsing IRC lines:
+    You should never need to do this, but if for some odd reason you must parse raw IRC lines, you may do so via either importing
+    'parse_irc' from Keldair::Core::Parser, or via the OOP methoud of Keldair::Core::Parser->parse($line). For example:
+        use Keldair::Core::Parser qw(parse_irc);
+        my $raw = ':alyx!alyx@omg.ponies PRIMVSG #woomoo :Unicorns';
+        parse_irc($raw);
+        my $irc = Keldair::Core::Parser->new();
+        $irc->parse($raw);
+
