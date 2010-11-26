@@ -3,7 +3,7 @@
 # default, perl is not. I intend to work on this and make it more intelligent
 # later, once I really understand Perl threads, but this does the job for now.
 
-package Timer;
+package Keldair::Core::Timer;
 
 use warnings;
 use strict;
