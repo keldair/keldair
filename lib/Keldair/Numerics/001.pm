@@ -6,15 +6,10 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair qw(snd config);
 
-sub _modinit
+sub modinit
 {
-	if (Keldair::VERSION =~ /^0\..*/)
-	{
-		print("Keldair::Numerics::001 requires Keldair 1.0.0 or above");
-		sleep 2;
-	}
-	my $self = shift;
-	print("$self loaded\n");
+	print(__PACKAGE__," loaded\n");
+	return 1;
 }
 
 sub handle_001
@@ -25,8 +20,7 @@ sub handle_001
 		$join .= $chan.',';
 	}
     Keldair::snd("$join");
+	return 1;
 }
-
-sub handle_notice { }
 
 1;

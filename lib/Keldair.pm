@@ -81,32 +81,7 @@ sub _loop {
             };
         }
 
-        if ( $event->{command} eq 'PRIVMSG' ) {
-            my $cmdchar = config('cmdchar');
-            if ( $event->{params} =~ /^$cmdchar/ix ) {
-                my $text = substr( $event->{params}, length($cmdchar) );
-                my @parv = split( ' ', $text );
-                my $cmdhandler = 'command_' . lc( $parv[0] );
-                foreach my $cmd (@modules) {
-                    eval {
-                        $cmd->$cmdhandler( $event->{target}, $event->{origin},
-                            $text, @parv );
-                    };
-                }
-            }
-            elsif ( $event->{params} =~ /^\001/x ) {
-                my $text = substr( $event->{params}, 1 );
-                my ( $type, undef ) = split( ' ', $text );
-                my $ctcphandle = 'ctcp_' . lc($type);
-                foreach my $cmd (@modules) {
-                    eval {
-                        $cmd->$ctcphandle( $event->{origin}, $event->{target},
-                            $text );
-                    };
-                }
-            }
-        }
-        elsif ( $event->{command} eq '001' ) {
+        if ( $event->{command} eq '001' ) {
             foreach my $cmd (@modules) {
                 eval { $cmd->on_connect; };
             }

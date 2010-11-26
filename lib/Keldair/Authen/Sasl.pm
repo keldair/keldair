@@ -5,6 +5,7 @@ use MIME::Base64;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair qw(snd config);
+use Keldair::Core::Timer;
 
 sub modinit {
     print(__PACKAGE__." loaded\n");
@@ -17,7 +18,7 @@ sub on_preconnect {
 }
 
 sub handle_cap {
-    my ( $self, $hostmask, $channel, $mtext, $line ) = @_;
+    my ( $self, $origin, $target, $params, $line ) = @_;
     my ( $tosend );
     if ( $line =~ / LS / ) {
         if ($line =~ /multi-prefix/xi) { $tosend .= ' multi-prefix'; }
@@ -34,32 +35,9 @@ sub handle_cap {
         }
     }
     elsif ( $line =~ / ACK / ) {
-        if ( $mtext =~ /sasl/i ) {
+        if ( $params =~ /sasl/i ) {
             snd("AUTHENTICATE PLAIN");
-            sleep 5;
-
-    my $u   = config('auth/user');
-    my $p   = config('auth/pass');
-    my $out = join( "\0", $u, $u, $p );
-    $out = encode_base64( $out, "" );
-
-    if ( length $out == 0 ) {
-        snd("AUTHENTICATE +");
-        return;
-    }
-    else {
-        while ( length $out >= 400 ) {
-            my $subout = substr( $out, 0, 400, '' );
-            snd("AUTHENTICATE $subout");
-        }
-        if ( length $out ) {
-            snd("AUTHENTICATE $out");
-        }
-        else {
-            snd("AUTHENTICATE +");
-        }
-    }
-
+            Keldair::Core::Timer->new(20, sub { snd("CAP END") });
         }
         else {
             snd("CAP END");
