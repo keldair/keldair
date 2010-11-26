@@ -29,8 +29,7 @@
     "modules" : [ "Keldair::Numerics::001", "Keldair::Authen::Sasl" ], #Module list can be seen via `ls lib/Keldair`
 
     "debug" : {
-        "fork" : "no", #Unless you are debugging, you'll not want to touch this.
-        "verbose" : 1,
+        "fork" : "yes", #Unless you are debugging, you'll not want to touch this.
     },
 
     "auth" : {
