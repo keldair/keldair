@@ -37,7 +37,7 @@ sub handle_cap {
     elsif ( $line =~ / ACK / ) {
         if ( $params =~ /sasl/i ) {
             snd("AUTHENTICATE PLAIN");
-            Keldair::Core::Timer->new(20, sub { snd("CAP END") });
+            Keldair::Core::Timer->after(20, sub { snd("CAP END") });
         }
         else {
             snd("CAP END");
