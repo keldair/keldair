@@ -15,9 +15,10 @@ sub modinit
 sub handle_001
 {
 	my $chans = config("channels/general");
+  print "Connected to IRC\nJoining channels: @$chans\n";
 	my $join = "JOIN ";
-	foreach my $chan (@$chans) {
-		$join .= $chan.',';
+	foreach (@$chans) {
+		$join .= $_.',';
 	}
     Keldair::snd("$join");
 	return 1;
