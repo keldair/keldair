@@ -1,0 +1,42 @@
+# config-file-type: JSON 1
+{
+    "server" : {
+        "host" : "irc.woomoo.org",
+        "port" : "6667",
+        "pass" : "linkage", #Uncomment if your server is passworded
+        "ssl" : "no" #Use SSL?
+    },
+
+    "keldair" : { #A hostmask is nick!user@host
+        "nick" : "keldair",
+        "user" : "keldair",
+        "real" : "keldair IRC bot"
+    },
+
+    "channels" : {
+        "debug" : "#keldair",
+        "general" : [ "#keldair", "#woomoo" ],
+    },
+
+    "admin" : {
+        "nick" : "misconfigured",
+        "real" : "misconfigured admin",
+        "email" : "admin@misconfigured.tld"
+    },
+
+    "cmdchar" : "!",
+
+    "modules" : [ "Keldair::Numerics::001", "Keldair::Authen::Sasl" ], #Module list can be seen via `ls lib/Keldair`
+
+    "debug" : {
+        "fork" : "no", #Unless you are debugging, you'll not want to touch this.
+        "verbose" : 1,
+    },
+
+    "auth" : {
+        #"service" : "X", #Service name to authenticate to, used in Keldair::Authen::UserServ only
+        "user" : "keldair", #User for Services (ie, NickServ) authentication
+        "pass" : "linkage",  #Password for Services authentication
+    }
+
+}
