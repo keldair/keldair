@@ -14,9 +14,10 @@ sub modinit
 
 sub handle_433
 {
-  my $nick = config('keldair/nick');
-  print "$nick is already in use.\n--> Concatenating to $nick-\n";
-  snd "NICK $nick-";
+  my $newnick = $Keldair::me.'-';
+  print "$Keldair::me is already in use.\n--> Concatenating to $newnick\n";
+  snd "NICK $newnick";
+  $Keldiar::me = $newnick;
   return 1;
 }
 

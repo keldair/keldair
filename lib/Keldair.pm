@@ -33,7 +33,7 @@ use constant {
 @Keldair::EXPORT_OK =
   qw(act away back ban cjoin config connect ctcp kick mode modlist modload msg notice oper snd topic userkill);
 
-our ( @modules, $sock, $SETTINGS );
+our ( @modules, $sock, $SETTINGS, $me );
 
 # Remember to allow anything you want to call in modules.
 
@@ -140,6 +140,7 @@ sub connect {
           . config('server/host')
           . " :$gecos" );
     snd("NICK $nick");
+    $me = $nick;
     return 1;
 }
 
