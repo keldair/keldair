@@ -1,0 +1,22 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+eval {
+  require Carp;
+  require IO::Socket;
+  require base;
+  require Exporter;
+  require FindBin;
+  require lib;
+  1;
+} or die "Could not find all the required Perl modules.\nYou may want to reinstall Perl...\n";
+
+print "Core Perl modules are ok, checking for extra dependencies...\n";
+
+print "   SSL:     ".((eval { require IO::Socket::SSL; 1; }) ? "OK" : "Not available. (install IO::Socket::SSL)").".\n";
+print "   Config:  ".((eval { require Config::JSON; 1; }) ? "OK" : "Not available. This is required. (install Config::JSON)").".\n";
+print "   Modules: ".((eval { require Module::Load; 1; }) ? "OK" : "Will not be able to load modules. (install Module::Load)").".\n";
+print "   Hosts:   ".((eval { require Sys::Hostname; 1; }) ? "OK" : "Will not be able to resolve hosts. (install Sys::Hostname)").".\n";
+print "   Threads: ".((eval { require threads; require threads::shared; 1; }) ? "OK" : "Cannot use threads. [NOT required].")."\n";
+exit 0;
