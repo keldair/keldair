@@ -65,9 +65,6 @@ sub _loop {
 
         $line =~ s/\r\n//x;
 
-        # Hey, let's print the line too!
-        print( '>> ' . $line . "\r\n" );
-
         my $event = parse_irc($line);
 
         my $handler = 'handle_' . lc( $event->{command} );
@@ -191,7 +188,10 @@ sub config {
 sub snd {
     my ($text) = @_;
     chomp($text);
-    print("<< $text\r\n") if config('debug/verbose') == 1;
+    if ((config('debug/verbose')) == 1)
+     {
+       print("<< $text\r\n");
+     }
     send( $sock, $text . "\r\n", 0 );
     return $text;
 }
