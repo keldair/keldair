@@ -17,7 +17,7 @@ sub handle_433
   my $newnick = $Keldair::me.'-';
   print "$Keldair::me is already in use.\n--> Concatenating to $newnick\n";
   snd "NICK $newnick";
-  $Keldiar::me = $newnick;
+  $Keldair::me = $newnick;
   return 1;
 }
 
