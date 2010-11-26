@@ -87,8 +87,9 @@ sub _loop {
             }
         }
 
-        if ( $line =~ /^PING :/ ) {
-            snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
+        elsif ( $event->{command} eq 'PING') {
+            #snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
+            snd( "PONG :$event->{params}" );
         }
 
     }

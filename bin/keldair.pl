@@ -10,10 +10,7 @@ use diagnostics;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use IO::Socket;
-use File::Data;
 use Keldair qw(config);
-
-my $rawlog = File::Data->new("$Bin/../var/raw.log");
 
 Keldair->new("$Bin/../etc/keldair.conf");
 
