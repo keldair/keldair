@@ -108,6 +108,7 @@ sub _connect {
             Proto    => "tcp",
             PeerAddr => $host,
             PeerPort => $port,
+            Timeout  => 30
         ) or croak("Connection failed to $host: $!\n");
     }
     else {
@@ -115,6 +116,7 @@ sub _connect {
             Proto    => "tcp",
             PeerAddr => $host,
             PeerPort => $port,
+            Timeout  => 30
         ) or croak("Connection failed to $host. \n");
     }
     Keldair::connect(
