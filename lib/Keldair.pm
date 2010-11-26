@@ -39,7 +39,7 @@ our ( @modules, $sock, $SETTINGS );
 
 sub new {
     my $self = shift;
-    my ($config) = @_;
+    my ($config) = $_[0];
     $SETTINGS = Config::JSON->new($config)
       or die("Cannot open config file!\n");
     my $modref = $SETTINGS->get("modules");
@@ -58,9 +58,8 @@ sub new {
 
 sub _loop {
     my (
-        $line,     $nickname, $command,   $mtext,
-        $hostmask, $channel,  $firstword, @spacesplit,
-        @words,    $origin,   $target
+        $line,
+
     );
     while ( $line = <$sock> ) {
 
@@ -84,7 +83,7 @@ sub _loop {
 
         if ( $event->{command} eq 'PRIVMSG' ) {
             my $cmdchar = config('cmdchar');
-            if ( $event->{params} =~ /^$cmdchar/i ) {
+            if ( $event->{params} =~ /^$cmdchar/ix ) {
                 my $text = substr( $event->{params}, length($cmdchar) );
                 my @parv = split( ' ', $text );
                 my $cmdhandler = 'command_' . lc( $parv[0] );
@@ -125,6 +124,7 @@ sub _loop {
 }
 
 sub _connect {
+    #SSL option connection nonsense stolen, mostly, from miniCruzer's ZeroBot
     my ( $host, $port ) = @_;
     if ( Keldair::config('server/ssl') =~ /^y.*/ix ) {
         require IO::Socket::SSL;
@@ -142,9 +142,9 @@ sub _connect {
         ) or croak("Connection failed to $host. \n");
     }
     Keldair::connect(
-        Keldair::config('keldair/user'),
-        Keldair::config('keldair/real'),
-        Keldair::config('keldair/nick')
+        config('keldair/user'),
+        config('keldair/real'),
+        config('keldair/nick')
     );
     _loop
       or croak(
@@ -240,6 +240,7 @@ sub ctcp {
 sub ctcpreply {
     my ( $target, $text ) = @_;
     snd("NOTICE $target :\001$text\001");
+    return 1;
 }
 
 sub act {
