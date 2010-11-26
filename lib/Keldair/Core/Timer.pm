@@ -10,51 +10,54 @@ use strict;
 use threads;
 use threads::shared;
 use Hash::Util::FieldHash qw(id);
-use Method::Signatures;
 
 Hash::Util::FieldHash::idhashes \ our (
-        %thread,
-        %time,
-        %repeat,
-        %block,
-        );
+    %thread,
+    %time,
+    %repeat,
+    %block,
+);
 
-method new($class: $time, $repeat, $block) {
+sub new {
+    my ($class, $time, $repeat, $block) = @_;
     my ($self) = bless(\my($o), ref($class)||$class);
 
     $time{id $self} = $time;
     $repeat{id $self} = $repeat;
     $block{id $self} = $block;
     $thread{id $self} = threads->new(sub {
-            while (1) {
+        while (1) {
             sleep($time);
             $block->();
 
             last unless $repeat;
-            }
-            });
+        }
+    });
 
     Hash::Util::FieldHash::register($self);
     Hash::Util::FieldHash::register($self, \(
-            %thread, %time, %repeat, %block
-            ));
+        %thread, %time, %repeat, %block
+    ));
 
     return $self;
 }
 
-method after($class: $time, $block) {
+sub after {
+    my ($class, $time, $block) = @_;
     $class->new($time, 0, $block);
 }
 
-method every($class: $time, $block) {
+sub every {
+    my ($class, $time, $block) = @_;
     $class->new($time, 1, $block);
 }
 
-method stop {
+sub stop {
+    my $self = shift;
     $thread{id $self}->exit();
 }
 
-method time { $time{id $self} }
-method repeat { $repeat{id $self} }
+sub time { my $self = shift; $time{id $self} }
+sub repeat { my $self = shift; $repeat{id $self} }
 
 1;
