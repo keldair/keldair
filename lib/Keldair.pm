@@ -252,7 +252,7 @@ sub unban {
 
 sub kick {
     my ( $channel, $target, $reason ) = @_;
-    snd("KICK $channel $target :$reason");
+    snd("KICK $channel $target :".($reason ? $reason : "No reason given.");
     return 1;
 }
 
