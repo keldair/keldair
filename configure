@@ -3,6 +3,10 @@ use strict;
 use warnings;
 
 eval {
+  require v5.10.0;
+} or die "This version of Perl is too old. Install v5.10.0 or later.\n";
+
+eval {
   require Carp;
   require IO::Socket;
   require base;
@@ -19,4 +23,5 @@ print "   Config:  ".((eval { require Config::JSON; 1; }) ? "OK" : "Not availabl
 print "   Modules: ".((eval { require Module::Load; 1; }) ? "OK" : "Will not be able to load modules. (install Module::Load)").".\n";
 print "   Hosts:   ".((eval { require Sys::Hostname; 1; }) ? "OK" : "Will not be able to resolve hosts. (install Sys::Hostname)").".\n";
 print "   Threads: ".((eval { require threads; require threads::shared; 1; }) ? "OK." : "Cannot use threads. Timer will be unavailable.")."\n";
+
 exit 0;
