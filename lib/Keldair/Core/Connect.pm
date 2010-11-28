@@ -1,12 +1,13 @@
 package Keldair::Core::Connect;
 use strict;
 use warnings;
+use Carp qw(croak carp cluck confess);
 use Keldair;
 
 our ( $sock, %connecthash );
 
 sub init {
-    %connecthash = (
+    %connecthash = ( 
         'Proto'    => "tcp",
         'PeerAddr' => Keldair::config('server/host'),
         'PeerPort' => Keldair::config('server/port'),
@@ -23,7 +24,6 @@ sub init {
                   sub { return Keldair::config('ssl/certfp/passwd'); }
             }
         }
-
         $sock = IO::Socket::SSL->new(%connecthash)
           or
           croak( "Connection failed to " . Keldair::config('server/host') . ": $!\n" );

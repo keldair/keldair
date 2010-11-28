@@ -23,5 +23,8 @@ print "   Config:  ".((eval { require Config::JSON; 1; }) ? "OK" : "Not availabl
 print "   Modules: ".((eval { require Module::Load; 1; }) ? "OK" : "Will not be able to load modules. (install Module::Load)").".\n";
 print "   Hosts:   ".((eval { require Sys::Hostname; 1; }) ? "OK" : "Will not be able to resolve hosts. (install Sys::Hostname)").".\n";
 print "   Threads: ".((eval { require threads; require threads::shared; 1; }) ? "OK." : "Cannot use threads. Timer will be unavailable.")."\n";
+print "   SASL...\n";
+print "     Blowfish: ".((eval { require Crypt::Blowfish; 1; }) ? "OK." : "Cannot use Blowfish SASL Authentication. (install Crypt::Blowfish).")."\n";
+print "     Base64:   ".((eval { require MIME::Base64; 1; }) ? "OK." : "Cannot use Base64 SASL Authentication. (install MIME::Base64).")."\n";
 print "   Ponies:  ".((eval { require Acme::Magic::Pony; 1; }) ? "Yay, ponies!" : "CANNOT FIND PONIES!")."\n";
 exit 0;
