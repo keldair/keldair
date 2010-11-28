@@ -15,7 +15,7 @@ sub modinit
 sub handle_001
 {
 	my $chans = config("channels/general");
-  print "Connected to IRC\nJoining channels: @$chans\n";
+  print "Connected to IRC!\nJoining channels: @$chans\n";
 	my $join = "JOIN ";
 	foreach (@$chans) {
 		$join .= $_.',';
