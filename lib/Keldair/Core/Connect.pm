@@ -6,12 +6,12 @@ use Keldair;
 our ( $sock, %connecthash );
 
 sub init {
-    %connecthash = {
+    %connecthash = (
         'Proto'    => "tcp",
         'PeerAddr' => Keldair::config('server/host'),
         'PeerPort' => Keldair::config('server/port'),
         'Timeout'  => 30
-    };
+    );
 
     if ( Keldair::config('server/ssl') =~ /^(y.*|on|1|t.*)$/i ) {
         eval { require IO::Socket::SSL; } or croak("Missing IO::Socket::SSL");
