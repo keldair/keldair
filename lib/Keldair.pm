@@ -18,6 +18,7 @@ use Sys::Hostname;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair::Core::Parser qw(parse_irc);
+use Keldair::Core::Connect;
 use constant {
     VERSIONSTRING => '2.2.1',
     VERSION       => 2,
@@ -97,25 +98,8 @@ sub _loop {
 }
 
 sub _connect {
-    #SSL option connection nonsense stolen, mostly, from miniCruzer's ZeroBot
-    my ( $host, $port ) = @_;
-    if ( Keldair::config('server/ssl') =~ /^(y.*|1|on)/ix ) {
-        require IO::Socket::SSL;
-        $sock = IO::Socket::SSL->new(
-            Proto    => "tcp",
-            PeerAddr => $host,
-            PeerPort => $port,
-            Timeout  => 30
-        ) or croak("Connection failed to $host: $!\n");
-    }
-    else {
-        $sock = IO::Socket::INET->new(
-            Proto    => "tcp",
-            PeerAddr => $host,
-            PeerPort => $port,
-            Timeout  => 30
-        ) or croak("Connection failed to $host. \n");
-    }
+    $sock = Keldair::Core::Connect->init() or croak("Connection failed: $!");
+
     Keldair::connect(
         config('keldair/user'),
         config('keldair/real'),
@@ -284,6 +268,12 @@ sub cjoin {
     my $channel = @_;
     snd("JOIN $channel");
     return 1;
+}
+
+sub nick {
+    my $nick = @_;
+    snd("NICK $nick");
+    return $nick;
 }
 
 1337 * ( 22 / 7 ) <= 9001;
