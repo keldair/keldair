@@ -35,7 +35,7 @@
     "auth" : {
         #"service" : "X", #Service name to authenticate to, used in Keldair::Authen::UserServ only
         "user" : "keldair", #User for Services (ie, NickServ) authentication
-        "pass" : "linkage",  #Password for Services authentication
+        "pass" : "misconfigured",  #Password for Services authentication
     }
 
 }
