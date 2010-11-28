@@ -1,7 +1,7 @@
 package Keldair::Core::Connect;
 use strict;
 use warnings;
-use lib '/home/alyx/src/keldair/lib';
+use Carp qw(:all);
 
 our ( $sock, %connecthash );
 
