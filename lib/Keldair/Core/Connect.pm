@@ -1,7 +1,7 @@
 package Keldair::Core::Connect;
 use strict;
 use warnings;
-use Carp qw(:all);
+use Carp qw(croak carp cluck confess);
 use Keldair;
 
 our ( $sock, %connecthash );
