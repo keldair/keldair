@@ -1,0 +1,580 @@
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Fri Nov 26 03:23:58 2010 -0600
+
+    Tagging 2.2.1
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 20:15:22 2010 -0600
+
+    Now uses the shiny new Timer API!
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 20:10:25 2010 -0600
+
+    Keldair::Core::Timer != Timer
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 20:09:24 2010 -0600
+
+    Timer.pm, now with less Method::Signatures!
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 20:06:17 2010 -0600
+
+    Fancier Timer module, thanks to sycobuny (again)
+
+Author: Samuel Hoffman <minicruzer@insightbb.com>
+Date:   Thu Nov 25 19:59:23 2010 -0500
+
+    Remove executable permission from README
+
+Author: Samuel Hoffman <minicruzer@insightbb.com>
+Date:   Thu Nov 25 19:58:51 2010 -0500
+
+    Add configure script to check for unsatisfied dependencies the bot (may) require.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:43:41 2010 -0600
+
+    Fixed some forgotten removals
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:31:52 2010 -0600
+
+    Cleaned lib/
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:29:27 2010 -0600
+
+    Added miniCruzer
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:28:25 2010 -0600
+
+    Fix default debug options
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:22:56 2010 -0600
+
+    rm this nonworking cmdhandler rubbish
+
+Merge: 6273754 16462b0
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:13:21 2010 -0600
+
+    Merge branch 'master' of github.com:keldair/keldair
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:12:51 2010 -0600
+
+    Pointless error output. Errors are to be expected here.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:01:51 2010 -0600
+
+    ignore this misplaced file
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 19:00:43 2010 -0600
+
+    example conf now
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 18:54:52 2010 -0600
+
+    Be more like a normal proper config
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 25 18:51:46 2010 -0600
+
+    Happy Sam?
+
+Author: Samuel Hoffman <minicruzer@insightbb.com>
+Date:   Thu Nov 25 19:05:57 2010 -0500
+
+    Remove executable permission on config file...
+
+Author: Samuel Hoffman <minicruzer@insightbb.com>
+Date:   Thu Nov 25 19:04:12 2010 -0500
+
+    Add .gitignore so we dont accidentally push a config.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sun Nov 21 23:56:36 2010 -0600
+
+    Updated api doc a bit
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sun Nov 21 23:48:51 2010 -0600
+
+    Removed Tim from contributors, can't even remember if he ever commited anything. Added sycobuny, as he's been an AMAZING help.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sun Nov 21 23:45:17 2010 -0600
+
+    Working timers, modified internals.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sun Nov 21 01:22:41 2010 -0600
+
+    Removing useless nonsense
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sat Nov 20 01:57:31 2010 -0600
+
+    Following RFC1459
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sat Nov 20 00:48:34 2010 -0600
+
+    Finally have working SASL, USER conforms to RFC 2812 now.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 18 00:28:49 2010 -0600
+
+    Added magical POD docs!
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 17 19:22:54 2010 -0600
+
+    Added a bit to the API, completed the parser
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 15 19:27:15 2010 -0600
+
+    Illegal seek... what
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 15 19:04:47 2010 -0600
+
+    :3
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 15 19:04:33 2010 -0600
+
+    What
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Sat Nov 13 10:22:09 2010 -0600
+
+    criticism's a bitch
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Fri Nov 12 01:25:02 2010 -0600
+
+    Forgot to end on 903/904 numerics
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Fri Nov 12 01:17:51 2010 -0600
+
+    ..random notice handlers? Wat?
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Fri Nov 12 01:14:55 2010 -0600
+
+    s/Shrike/UserServ/
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Fri Nov 12 01:14:18 2010 -0600
+
+    Moved Services authentication to Keldair::Authen namespace.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 12:42:51 2010 -0600
+
+    Updated api
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 12:42:04 2010 -0600
+
+    Added more commands
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 12:11:06 2010 -0600
+
+    No longer offering modunload or modreload
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 12:08:27 2010 -0600
+
+    Actually, this doesn't work, commented out for now.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 12:06:09 2010 -0600
+
+    It now /works/
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 11:44:55 2010 -0600
+
+    Work damn it.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 8 11:19:32 2010 -0600
+
+    Ok, this actually /works/
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 4 22:24:56 2010 -0500
+
+    Wait, what?
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Thu Nov 4 17:44:08 2010 -0500
+
+    Working on Method::Signatures nonsense
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 23:37:01 2010 -0500
+
+    Why did I change this? nfc.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 23:19:56 2010 -0500
+
+    Added a large pile of modules to lib/ for use in Keldair's shinier OOP
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 22:42:49 2010 -0500
+
+    Unneeded use statements
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 22:33:32 2010 -0500
+
+    Keldair 2.0, core design reworked.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 18:33:57 2010 -0500
+
+    Added modreload
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 00:29:39 2010 -0500
+
+    Finally updated keldair.pl for libkeldair v2
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 00:27:48 2010 -0500
+
+    Added hooks for on_(dis)connect
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Wed Nov 3 00:20:08 2010 -0500
+
+    Begin working on Keldair's API documentation
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:41:52 2010 -0500
+
+    Cleaned up various nonsense.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:41:09 2010 -0500
+
+    Forgot a ; and forgot to change a variable
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:39:46 2010 -0500
+
+    Added configuration loader.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:19:18 2010 -0500
+
+    It's Keldair.pm's $sock now.
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:18:29 2010 -0500
+
+    Added modlist to the API
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:17:34 2010 -0500
+
+    Worked slightly more on connections, added module management features to the API
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Tue Nov 2 23:10:15 2010 -0500
+
+    Works on moving everything to Keldair.pm
+
+Author: Alexandria Marie Wolcott <alyx@spartairc.org>
+Date:   Mon Nov 1 21:46:09 2010 -0500
+
+    use -> require
+
+Author: Alexandria Wolcott <alyx@IND-Serv003.Wilcox-Tech.com>
+Date:   Mon Nov 1 20:34:20 2010 -0400
+
+    Halfassed SSL?
+
+Author: Chazz Wolcott <chazz@staticbox.net>
+Date:   Sat Oct 30 10:09:03 2010 -0500
+
+    Final cleanups for 1.0.1
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 26 17:46:10 2010 -0500
+
+    Wtf? Setup is still here?
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 26 17:44:38 2010 -0500
+
+    That didn't work. Back to the old methoud.
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 26 16:45:33 2010 -0500
+
+    Let's see how this works
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 26 01:15:41 2010 -0500
+
+    Removing Parse/ too
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 26 01:15:00 2010 -0500
+
+    Removed useless Term/ and auto/ libs
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Wed Oct 20 18:14:44 2010 -0500
+
+    k
+
+Author: Timothy Estes <tim7967@gmail.com>
+Date:   Wed Oct 20 19:07:00 2010 -0400
+
+    Added Credit where due.
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 16:38:08 2010 -0500
+
+    This is a bit cleaner
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 07:46:12 2010 -0500
+
+    almost working
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 01:43:36 2010 -0500
+
+    Finished this
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 01:42:52 2010 -0500
+
+    Alpha 3. Finally exporting
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 01:28:07 2010 -0500
+
+    Keldair is now in alpha 2, Keldair::config now works
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 01:15:11 2010 -0500
+
+    Woo, I think it works :D
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 00:56:20 2010 -0500
+
+    keldair.conf rewritten
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Tue Oct 19 00:46:47 2010 -0500
+
+    Begin working on JSON-style config
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Sun Oct 17 20:40:19 2010 -0500
+
+    fixed shit
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Sat Oct 16 21:44:22 2010 -0500
+
+    Why won't thrips work.. D:
+
+Author: Alyx Rothschild <chazz@staticbox.net>
+Date:   Sat Oct 16 21:19:00 2010 -0500
+
+    Restoring from very old copy.
+
+Author: Chazz Wolcott <chazz@staticbox.net>
+Date:   Tue Aug 10 04:05:05 2010 -0500
+
+    lolreadme
+
+Author: Chazz Wolcott <chazz@staticbox.net>
+Date:   Wed Jul 28 14:45:21 2010 -0500
+
+    k
+
+Author: Chazz Wolcott <chazz@staticbox.net>
+Date:   Wed Jul 28 14:36:59 2010 -0500
+
+    Fuck lib
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 21:48:34 2010 -0500
+
+    Test this
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 18:14:05 2010 -0500
+
+    oops, little type
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 18:13:10 2010 -0500
+
+    Moved them to the bottom
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 18:12:14 2010 -0500
+
+    Added SIG handlers
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 17:13:48 2010 -0500
+
+    Now is a pseudodaemon.
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 17:08:19 2010 -0500
+
+    It now has a raw log
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 17:02:10 2010 -0500
+
+    ctcp -> text
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 17:00:54 2010 -0500
+
+    Added Parse::RecDescent
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 16:55:30 2010 -0500
+
+    Fixed ./keldair
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 16:52:57 2010 -0500
+
+    ./keldair is now EXECUTABLE! :D
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 16:50:47 2010 -0500
+
+    Fixed lib stuff, I think. Fixed setup failures.
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 16:43:13 2010 -0500
+
+    Added Term::ReadKey to libs
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 16:40:20 2010 -0500
+
+    Setup does MOAR stuff
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Thu Jul 1 14:57:31 2010 -0500
+
+    EVERYTHING is spawned from setup now
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 20:12:19 2010 -0500
+
+    Can now send NOTICEs and CTCPs!
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 19:56:35 2010 -0500
+
+    so does keldair.pl
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 19:56:03 2010 -0500
+
+    ./setup now uses the ./lib dir :D
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 19:53:55 2010 -0500
+
+    Added Config::Scoped
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 19:51:51 2010 -0500
+
+    Added stuff to ./lib
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 03:22:21 2010 -0500
+
+    core -> keldair
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 03:18:46 2010 -0500
+
+    Cleaned up the core
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 03:06:31 2010 -0500
+
+    It's now setup, not setup.pl
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 03:04:37 2010 -0500
+
+    setup is complete
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:57:21 2010 -0500
+
+    Screw if statements
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:30:57 2010 -0500
+
+    Used vim to clean up some tabs
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:30:04 2010 -0500
+
+    Added some more optionlike-options
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:25:34 2010 -0500
+
+    Added admin variables!
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:23:07 2010 -0500
+
+    Finished adding channel support
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:21:23 2010 -0500
+
+    Working on channels
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 02:18:37 2010 -0500
+
+    Half finished with the setup script.
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 01:35:45 2010 -0500
+
+    Don't need that in there.
+
+Author: Chazz Wolcott <root@spartairc.org>
+Date:   Tue Jun 29 01:34:33 2010 -0500
+
+    Base commit

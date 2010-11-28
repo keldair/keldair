@@ -99,7 +99,7 @@ sub _loop {
 sub _connect {
     #SSL option connection nonsense stolen, mostly, from miniCruzer's ZeroBot
     my ( $host, $port ) = @_;
-    if ( Keldair::config('server/ssl') =~ /^y.*/ix ) {
+    if ( Keldair::config('server/ssl') =~ /^(y.*|1|on)/ix ) {
         require IO::Socket::SSL;
         $sock = IO::Socket::SSL->new(
             Proto    => "tcp",
@@ -223,7 +223,7 @@ sub ctcpreply {
 
 sub act {
     my ( $target, $text ) = @_;
-    snd( "PRIVMSG " . $target . " :\001ACTION " . $text . "\001" );
+    snd( "PRIVMSG $target :\001ACTION $text\001" );
     return 1;
 }
 
