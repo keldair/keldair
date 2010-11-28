@@ -175,7 +175,9 @@ sub config {
 sub snd {
     my ($text) = @_;
     chomp($text);
-    if ((config('debug/verbose')) =~ /^(y.*|on|1|t.*)$/i)
+    my $verbose = config('debug/verbose');
+    $verbose ||= 'no';
+    if ($verbose =~ /^(y.*|on|1|t.*)$/i)
      {
        print("<< $text\r\n");
      }
