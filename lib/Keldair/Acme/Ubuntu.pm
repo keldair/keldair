@@ -5,35 +5,6 @@ use warnings;
 use Switch;
 use Keldair qw(msg part nick cjoin);
 
-our %letters = {
-    'A' => 'B',
-    'B' => 'C',
-    'C' => 'D',
-    'D' => 'E',
-    'E' => 'F',
-    'F' => 'G',
-    'G' => 'H',
-    'H' => 'I',
-    'I' => 'J',
-    'J' => 'K',
-    'K' => 'L',
-    'L' => 'M',
-    'M' => 'N',
-    'N' => 'O',
-    'O' => 'P',
-    'P' => 'Q',
-    'Q' => 'R',
-    'R' => 'S',
-    'S' => 'T',
-    'T' => 'U',
-    'U' => 'V',
-    'V' => 'W',
-    'W' => 'X',
-    'X' => 'Y',
-    'Y' => 'Z',
-    'Z' => 'A'
-};
-
 sub modinit { }
 
 sub handle_notice {
@@ -70,6 +41,9 @@ sub handle_privmsg {
         }    #Not in the slightest, but say yes to appease stupid Ubuntards.
         case 'What is the letter between S and U in the alphabet?' {
             msg( $target, 'T' )
+        }
+        case /^What (is the letter between (.*) and (.*) in the alphabet|letter is between (.*) and (.*) (alphabetically|in the Latin alphabet))\?/i {
+            msg($target, chr(ord($1)+1))
         }
         case m/^How many letters are there in the word '(.*)' .*/i {
             msg( $target, length($1) )
