@@ -2,6 +2,7 @@ package Keldair::Core::Connect;
 use strict;
 use warnings;
 use Carp qw(:all);
+use Keldair;
 
 our ( $sock, %connecthash );
 
