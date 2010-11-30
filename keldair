@@ -1,3 +1,4 @@
 #!/bin/sh
-echo 'Starting Keldair.....'; echo ""
+echo 'Starting Keldair...'; echo ""
+PERL_ONLY="yes"
 perl ./bin/keldair.pl

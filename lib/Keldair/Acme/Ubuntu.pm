@@ -42,7 +42,7 @@ sub handle_privmsg {
         case 'What is the letter between S and U in the alphabet?' {
             msg( $target, 'T' )
         }
-        case /^What (is the letter between (.*) and (.*) in the alphabet|letter is between (.*) and (.*) (alphabetically|in the Latin alphabet))\?/i {
+        case m/^What (is the letter between (.*) and (.*) in the alphabet|letter is between (.*) and (.*) (alphabetically|in the Latin alphabet))\?/i {
             msg($target, chr(ord($1)+1))
         }
         case m/^How many letters are there in the word '(.*)' .*/i {

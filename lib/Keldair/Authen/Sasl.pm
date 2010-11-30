@@ -2,7 +2,7 @@ package Keldair::Authen::Sasl;
 use strict;
 use warnings;
 use MIME::Base64;
-use Crypt::Blowfish;
+use Crypt::Blowfish_PP;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair qw(snd config);
