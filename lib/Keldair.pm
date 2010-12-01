@@ -18,7 +18,6 @@ use Sys::Hostname;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair::Core::Parser qw(parse_irc);
-use Keldair::Core::Connect;
 use constant {
     VERSIONSTRING => '2.2.1',
     VERSION       => 2,
@@ -58,10 +57,7 @@ sub new {
 }
 
 sub _loop {
-    my (
-        $line,
-
-    );
+    my ($line);
     while ( $line = <$sock> ) {
       my $verbose = config('debug/verbose');
       $verbose ||= 'no';
@@ -100,7 +96,36 @@ sub _loop {
 }
 
 sub _connect {
-    $sock = Keldair::Core::Connect->init() or croak("Connection failed: $!");
+    #$sock = Keldair::Core::Connect->init() or croak("Connection failed: $!");
+
+    my %connecthash = (
+        'Proto'    => "tcp",
+        'PeerAddr' => Keldair::config('server/host'),
+        'PeerPort' => Keldair::config('server/port'),
+        'Timeout'  => 30
+    );
+
+    if ( config('server/ssl') =~ /^(y.*|on|1|t.*)$/i ) {
+        eval { require IO::Socket::SSL; } or croak("Missing IO::Socket::SSL");
+
+        #if ( config( 'ssl/certfp' =~ /^(y.*|on|1|t.*)$/i ) ) {
+            #$connecthash{'SSL_cert_file'} = config('ssl/certfp/filename');
+            #if ( config('ssl/certfp/passwd') ) {
+                #$connecthash{'SSL_passwd_cb'} =
+                  #sub { return config('ssl/certfp/passwd'); }
+            #}
+        #}
+        $sock = IO::Socket::SSL->new(%connecthash)
+            or
+          croak( "Connection failed to " . config('server/host') . ": $!\n" );
+    }
+
+    else {
+        $sock = IO::Socket::INET->new(%connecthash)
+          or
+          croak( "Connection failed to " . config('server/host') . ": $!\n" );
+    }
+
 
     Keldair::connect(
         config('keldair/user'),
