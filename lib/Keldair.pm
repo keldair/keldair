@@ -166,7 +166,7 @@ sub modload {
     eval { $mod->modinit; };
     print( "$mod" . "::modinit failed: $!\n" ) if $!;
 
-    eval { $mod->modinit; } or cluck("Missing modinit!")      and return 0;
+    # eval { $mod->modinit; } or cluck("Missing modinit!")      and return 0;
     push( @modules, $mod );
     return 1;
 }
