@@ -6,7 +6,7 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair qw(snd config);
 
-sub _modinit
+sub modinit
 {
     if (Keldair::VERSION =~ /^0\..*/)
     {
