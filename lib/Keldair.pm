@@ -299,6 +299,11 @@ sub cjoin {
     return 1;
 }
 
+sub cpart {
+    my ($channel,$reason) = @_;
+    snd("PART ".$channel." :".$reason);
+}
+
 sub nick {
     my $nick = @_;
     snd("NICK $nick");
