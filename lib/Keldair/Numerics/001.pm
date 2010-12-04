@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair qw(snd config);
+use Keldair qw(cjoin config);
 
 sub modinit
 {
@@ -16,11 +16,11 @@ sub handle_001
 {
 	my $chans = config("channels/general");
   print "Connected to IRC!\nJoining channels: @$chans\n";
-	my $join = "JOIN ";
+	my $c;
 	foreach (@$chans) {
-		$join .= $_.',';
+		$c .= $_.',';
 	}
-    Keldair::snd("$join");
+        Keldair::cjoin("$c");
 	return 1;
 }
 

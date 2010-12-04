@@ -4,9 +4,9 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
-use Keldair qw(snd config);
+use Keldair qw(msg config);
 
-sub _modinit
+sub modinit
 {
     if (Keldair::VERSION =~ /^0\..*/)
     {
@@ -19,7 +19,7 @@ sub _modinit
 
 sub handle_001
 {
-    snd("PRIVMSG ".config("auth/service")." :LOGIN ".config("auth/user")." ".config("auth/pass"));
+    msg(config("auth/service"), "LOGIN ".config("auth/user")." ".config("auth/pass"));
 }
 
 1;

@@ -33,6 +33,7 @@ Keldair API documentation:
     * Keldair::away
     * Keldair::back
     * Keldair::cjoin
+    * Keldair::cpart
 -------------------------
 
 Prerequisits:
@@ -40,7 +41,7 @@ Prerequisits:
 
 Exported subroutines:
     Keldair::modload, Keldair::modlist, Keldair::snd, Keldair::msg, Keldair::notice, Keldair::ctcp, Keldair::act, Keldair::oper,
-    Keldair::kill, Keldair::ban, Keldair::kick, Keldair::mode.
+    Keldair::kill, Keldair::ban, Keldair::kick, Keldair::mode, Keldair::cjoin, Keldair::cpart.
 
     These commands can be imported via 'use Keldair qw(snd msg whatever_else_you_want);'
     They then can be called via 'msg(whatever);' instead of 'Keldair::msg(whatever);'
