@@ -19,6 +19,7 @@ sub modinit
 
 sub handle_001
 {
+    return if (!config('auth/service') || !config('auth/user') || !config('auth/pass'));
     msg(config("auth/service"), "LOGIN ".config("auth/user")." ".config("auth/pass"));
 }
 
