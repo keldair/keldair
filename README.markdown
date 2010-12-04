@@ -1,0 +1,9 @@
+Yes, hello
+This is my leet bot framework.
+kthxbai.
+
+Contributors:
+alyx (Alexandria Wolcott)
+sycobuny (Stephen Belcher)
+miniCruzer (Samuel Hoffman)
+MattB (Matthew Barksdale)
