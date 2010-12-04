@@ -9,14 +9,13 @@ TABLE OF CONTENTS
 1. Introduction
 ----------------
 
-   Yes, hello
-   This is my leet bot framework.
-   kthxbai.
+      Yes, hello
+      This is my leet bot framework.
+      kthxbai.
 
 2. Credits
 -----------
 
-   Contributors:
       - alyx (Alexandria Wolcott)
       - sycobuny (Stephen Belcher)
       - miniCruzer (Samuel Hoffman)
