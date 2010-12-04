@@ -3,7 +3,7 @@ our $VERSION = '1.5000';
 
 use Mouse;
 use File::Spec;
-use JSON::PP 2.0;
+use JSON 2.0;
 use List::Util;
 
 use constant FILE_HEADER    => "# config-file-type: JSON 1\n";

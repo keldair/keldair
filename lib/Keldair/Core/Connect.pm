@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Carp qw(croak carp cluck confess);
 use Keldair;
+use IO::Socket;
 
 our ( $sock, %connecthash );
 
@@ -15,7 +16,7 @@ sub init {
     );
 
     if ( Keldair::config('server/ssl') =~ /^(y.*|on|1|t.*)$/i ) {
-        eval { require IO::Socket::SSL; } or croak("Missing IO::Socket::SSL");
+        eval { require IO::Socket::SSL; 1; } or croak("Missing IO::Socket::SSL");
 
         if ( Keldair::config( 'ssl/certfp' =~ /^(y.*|on|1|t.*)$/i ) ) {
             $connecthash{'SSL_cert_file'} = Keldair::config('ssl/certfp/filename');
@@ -24,15 +25,16 @@ sub init {
                   sub { return Keldair::config('ssl/certfp/passwd'); }
             }
         }
+        require IO::Socket::SSL;
         $sock = IO::Socket::SSL->new(%connecthash)
           or
-          croak( "Connection failed to " . Keldair::config('server/host') . ": $!\n" );
+          croak( "Connection failed to $connecthash{PeerAddr}:$connecthash{PeerPort}: $!\n" );
     }
 
     else {
         $sock = IO::Socket::INET->new(%connecthash)
           or
-          croak( "Connection failed to " . Keldair::config('server/host') . ": $!\n" );
+          croak( "Connection failed to $connecthash{PeerAddr}:$connecthash{PeerPort}: $!\n" );
     }
 
     return $sock;
