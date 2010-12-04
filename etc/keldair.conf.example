@@ -24,7 +24,7 @@
         "email" : "admin@misconfigured.tld"
     },
 
-    "cmdchar" : "!",
+    "cmdchar" : "^",
 
     "modules" : [ "Keldair::Numerics::001", "Keldair::Authen::Sasl" ], #Module list can be seen via `ls lib/Keldair`
 
