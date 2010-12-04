@@ -19,6 +19,8 @@ sub modinit
 
 sub handle_001
 {
+  return if (!config('auth/user') || !config('auth/pass'));
+
     msg("NickServ", "IDENTIFY ".config("auth/user")." ".config("auth/pass"));
 }
 
