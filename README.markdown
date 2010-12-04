@@ -5,6 +5,7 @@ TABLE OF CONTENTS
 -----------------
    1. Introduction
    2. Credits
+   3. People who aren't good enough to be in Credits
 
 1. Introduction
 ----------------
@@ -20,3 +21,10 @@ TABLE OF CONTENTS
       - sycobuny (Stephen Belcher)
       - miniCruzer (Samuel Hoffman)
       - MattB (Matthew Barksdale)
+
+3. People who aren't good enough to be in Credits
+--------------------------------------------------
+
+      - Ambur
+
+
