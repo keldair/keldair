@@ -2,7 +2,7 @@
 package Keldair::Numerics::433;
 use strict;
 use warnings;
-use Keldair qw(snd config);
+use Keldair qw(nick config);
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 
@@ -16,7 +16,7 @@ sub handle_433
 {
   my $newnick = $Keldair::me.'-';
   print "$Keldair::me is already in use.\n--> Concatenating to $newnick\n";
-  snd "NICK $newnick";
+  nick "$newnick";
   $Keldair::me = $newnick;
   return 1;
 }
