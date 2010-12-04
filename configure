@@ -28,5 +28,5 @@ print "   Threads: ".((eval { require threads; require threads::shared; 1; }) ? 
 print "   SASL...\n";
 print "     Blowfish: ".((eval { require Crypt::Blowfish; 1; }) ? "OK." : "Cannot use Blowfish SASL Authentication. (install Crypt::Blowfish).")."\n";
 print "     Base64:   ".((eval { require MIME::Base64; 1; }) ? "OK." : "Cannot use Base64 SASL Authentication. (install MIME::Base64).")."\n";
-print "   Ponies:  ".((eval { require Acme::Magic::Pony; 1; }) ? "Yay, ponies!" : "CANNOT FIND PONIES!")."\n";
+print "   Ponies:  ".((eval { require Acme::Magic::Pony; 1; }) ? "omg, ponies!" : "CANNOT FIND PONIES!")."\n";
 exit 0;
