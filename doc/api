@@ -49,8 +49,8 @@ Exported subroutines:
 Hooks:
     Keldair offers the following hooks, which are created as subroutines in the Keldair module:
         * handle_<raw IRC command>
-        * cmd_< !command name> (Note: Does not correctly function at the moment.)
-        * ctcp_<CTCP handler> (Also does not work right.)
+        * cmd_< !command name>
+        * ctcp_<CTCP handler> (Note: Does not work right.)
         * on_connect
         * on_disconnect
     The handle_ hooks are used to hook to a raw IRC command (i.e., PRIVMSG). The name of the subroutine starts with handle_, 
