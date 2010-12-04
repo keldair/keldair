@@ -83,6 +83,18 @@ sub _loop {
             }
         }
 
+	if ( $event->{command} eq 'PRIVMSG' ) {
+		my @args = split(' ', $event->{params});
+		if (substr($args[0], 0, 1) eq config('cmdchar')) {
+			my $handler = 'cmd_'.lc($event->{command});
+			foreach my $cmd (@modules) {
+				eval {
+					$cmd->$handler($event->{origin}, $event->{target}, $event->{params}, $line);
+				};
+			}
+		}
+	}
+
         elsif ( $event->{command} eq 'PING') {
             #snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
             snd( "PONG :$event->{params}" );
