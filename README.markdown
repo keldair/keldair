@@ -10,9 +10,7 @@ TABLE OF CONTENTS
 ----------------
 
    Yes, hello
-
    This is my leet bot framework.
-
    kthxbai.
 
 2. Credits
