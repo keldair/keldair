@@ -31,7 +31,7 @@ use constant {
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
 
 @Keldair::EXPORT_OK =
-  qw(act away back ban cjoin config connect ctcp kick mode modlist modload msg notice oper snd topic userkill);
+  qw(act away back ban cjoin config connect ctcp kick mode modlist modload msg notice oper snd topic userkill cpart);
 
 our ( @modules, $sock, $SETTINGS, $me );
 
@@ -309,5 +309,6 @@ sub nick {
     snd("NICK $nick");
     return $nick;
 }
+
 
 1337 * ( 22 / 7 ) <= 9001;
