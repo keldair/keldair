@@ -20,7 +20,7 @@ sub handle_001
 	foreach (@$chans) {
 		$c .= $_.',';
 	}
-        Keldair::cjoin($c);
+        cjoin($c);
 	return 1;
 }
 
