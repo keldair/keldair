@@ -20,11 +20,11 @@ use lib "$Bin/../lib";
 use Keldair::Core::Parser qw(parse_irc);
 use constant {
 	VERSIONSTRING => '2.2.1',
-	VERSION       => 2,
-	SUBVERSION    => 0,
-	REVISION      => 0,
-	RELEASESTAGE  => ' ',
-	RELEASE       => ' '
+		      VERSION       => 2,
+		      SUBVERSION    => 0,
+		      REVISION      => 0,
+		      RELEASESTAGE  => ' ',
+		      RELEASE       => ' '
 };
 
 our $VERSION = Keldair::VERSIONSTRING;
@@ -54,7 +54,7 @@ sub new {
 		eval { $mod->on_startup; };
 	}
 	_connect( config('server/host'), config('server/port') ) or
-	croak("Error connecting to server: $!\n");
+		croak("Error connecting to server: $!\n");
 	return 1;
 }
 
@@ -73,9 +73,9 @@ sub _loop {
 		foreach my $cmd (@modules) {
 			eval {
 				$cmd->$handler(
-					$event->{origin}, $event->{target},
-					$event->{params}, $line
-				);
+						$event->{origin}, $event->{target},
+						$event->{params}, $line
+					      );
 			};
 		}
 
@@ -108,7 +108,7 @@ sub _loop {
 		}
 
 		elsif ( $event->{command} eq 'PING') {
-			#snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
+#snd( "PONG :" . substr( $line, index( $line, ":" ) + 1 ) );
 			snd( "PONG :$event->{params}" );
 		}
 
@@ -120,46 +120,46 @@ sub _loop {
 }
 
 sub _connect {
-	#$sock = Keldair::Core::Connect->init() or croak("Connection failed: $!");
+#$sock = Keldair::Core::Connect->init() or croak("Connection failed: $!");
 
 	my %connecthash = (
-		'Proto'    => "tcp",
-		'PeerAddr' => Keldair::config('server/host'),
-		'PeerPort' => Keldair::config('server/port'),
-		'Timeout'  => 30
-	);
+			'Proto'    => "tcp",
+			'PeerAddr' => Keldair::config('server/host'),
+			'PeerPort' => Keldair::config('server/port'),
+			'Timeout'  => 30
+			);
 
 	if ( config('server/ssl') =~ /^(y.*|on|1|t.*)$/i ) {
 		eval { require IO::Socket::SSL; } or croak("Missing IO::Socket::SSL");
 
-		#if ( config( 'ssl/certfp' =~ /^(y.*|on|1|t.*)$/i ) ) {
-		#$connecthash{'SSL_cert_file'} = config('ssl/certfp/filename');
-		#if ( config('ssl/certfp/passwd') ) {
-		#$connecthash{'SSL_passwd_cb'} =
-		#sub { return config('ssl/certfp/passwd'); }
-		#}
-		#}
+#if ( config( 'ssl/certfp' =~ /^(y.*|on|1|t.*)$/i ) ) {
+#$connecthash{'SSL_cert_file'} = config('ssl/certfp/filename');
+#if ( config('ssl/certfp/passwd') ) {
+#$connecthash{'SSL_passwd_cb'} =
+#sub { return config('ssl/certfp/passwd'); }
+#}
+#}
 		$sock = IO::Socket::SSL->new(%connecthash)
 			or
-		croak( "Connection failed to " . config('server/host') . ": $!\n" );
+			croak( "Connection failed to " . config('server/host') . ": $!\n" );
 	}
 
 	else {
 		$sock = IO::Socket::INET->new(%connecthash)
 			or
-		croak( "Connection failed to " . config('server/host') . ": $!\n" );
+			croak( "Connection failed to " . config('server/host') . ": $!\n" );
 	}
 
 
 	Keldair::connect(
-		config('keldair/user'),
-		config('keldair/real'),
-		config('keldair/nick')
-	);
+			config('keldair/user'),
+			config('keldair/real'),
+			config('keldair/nick')
+			);
 	_loop
 		or croak(
-		"Missing Keldair::_loop, report this to http://github.com/keldair/keldair!"
-	) and return 0;
+				"Missing Keldair::_loop, report this to http://github.com/keldair/keldair!"
+			) and return 0;
 }
 
 sub connect {
@@ -171,9 +171,9 @@ sub connect {
 	}
 	snd("PASS $pass") if defined($pass);
 	snd(    "USER $ident "
-		. hostname . " "
-		. config('server/host')
-		. " :$gecos" );
+			. hostname . " "
+			. config('server/host')
+			. " :$gecos" );
 	snd("NICK $nick");
 	$me = $nick;
 	return 1;
@@ -190,7 +190,7 @@ sub modload {
 	eval { $mod->modinit; };
 	print( "$mod" . "::modinit failed: $!\n" ) if $!;
 
-	# eval { $mod->modinit; } or cluck("Missing modinit!")      and return 0;
+# eval { $mod->modinit; } or cluck("Missing modinit!")      and return 0;
 	push( @modules, $mod );
 	return 1;
 }
@@ -326,6 +326,7 @@ sub cjoin {
 sub cpart {
 	my ($channel,$reason) = @_;
 	snd("PART ".$channel." :".$reason);
+	return 1;
 }
 
 sub nick {
