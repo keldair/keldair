@@ -51,7 +51,7 @@ sub new {
 	}
 	push( @modules, 'main' );
 	foreach my $mod (@modules) {
-		eval { $mod->on_startup; };
+		eval { $mod->on_startup; 1; };
 	}
 	_connect( config('server/host'), config('server/port') ) or
 		croak("Error connecting to server: $!\n");
@@ -76,12 +76,13 @@ sub _loop {
 						$event->{origin}, $event->{target},
 						$event->{params}, $line
 					      );
+				1;
 			};
 		}
 
 		if ( $event->{command} eq '001' ) {
 			foreach my $cmd (@modules) {
-				eval { $cmd->on_connect; };
+				eval { $cmd->on_connect; 1; };
 			}
 		}
 
@@ -94,6 +95,7 @@ sub _loop {
 				foreach my $cmd (@modules) {
 					eval {
 						$cmd->$handler($event, $line);
+						1;
 					}
 				}
 			}
@@ -102,6 +104,7 @@ sub _loop {
 				foreach my $cmd (@modules) {
 					eval {
 						$cmd->$handler($event->{origin}, $event->{target}, $event->{params}, $line);
+						1;
 					};
 				}
 			}
@@ -114,7 +117,7 @@ sub _loop {
 
 	}
 	foreach my $cmd (@modules) {
-		eval { $cmd->on_disconnect; };
+		eval { $cmd->on_disconnect; 1; };
 	}
 	return 1;
 }
@@ -129,7 +132,7 @@ sub _connect {
 			'Timeout'  => 30
 			);
 
-	if ( config('server/ssl') =~ /^(y.*|on|1|t.*)$/i ) {
+	if ( config('server/ssl') =~ /^(y.*|on|1|t.*)$/ix ) {
 		eval { require IO::Socket::SSL; } or croak("Missing IO::Socket::SSL");
 
 #if ( config( 'ssl/certfp' =~ /^(y.*|on|1|t.*)$/i ) ) {
