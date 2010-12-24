@@ -313,7 +313,7 @@ sub away {
 }
 
 sub back {
-	snd("AWAY");
+	snd('AWAY');
 	return 1;
 }
 
@@ -325,7 +325,7 @@ sub cjoin {
 
 sub cpart {
 	my ($channel,$reason) = @_;
-	snd("PART ".$channel." :".$reason);
+	snd("PART $channel :".$reason);
 	return 1;
 }
 
