@@ -15,7 +15,7 @@ if (!-e $ARGV[0])
   exit 0;
 }
 
-my $critic = Perl::Critic->new();
+my $critic = Perl::Critic->new(-severity => 'brutal');
 my @violations = $critic->critique($ARGV[0]);
 
 if (!defined $violations[0])
