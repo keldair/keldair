@@ -63,7 +63,7 @@ sub _loop {
 	while ( $line = <$sock> ) {
 		my $verbose = config('debug/verbose');
 		$verbose ||= 'no';
-		print ">> ".$line if $verbose =~ (m/^(y.*|on|1|t.*)$/i);
+		print ">> ".$line if $verbose =~ (m/^(y.*|on|1|t.*)$/ix);
 		$line =~ s/\r\n//x;
 
 		my $event = parse_irc($line);
