@@ -85,6 +85,16 @@ sub _loop {
 
 	if ( $event->{command} eq 'PRIVMSG' ) {
 		my @args = split(' ', $event->{params});
+		if ($line =~ m/\001/) { # This is a ctcp
+			$event->{params} =~ s/\001//g;
+			my ($ctcp, undef) = split(' ', $event->{params});
+			my $handler = 'ctcp_'.lc($ctcp);
+			foreach my $cmd (@modules) {
+				eval {
+					$cmd->$handler($event, $line);
+				}
+			}
+		}
 		if (substr($args[0], 0, 1) eq config('cmdchar')) {
 			my $handler = 'cmd_'.lc($event->{command});
 			foreach my $cmd (@modules) {
