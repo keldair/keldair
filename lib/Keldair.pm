@@ -28,7 +28,7 @@ use constant {
 		      RELEASE       => ' '
 };
 
-our $VERSION = version->declare('v2.2.1');
+our $VERSION = '2.2.1';
 
 # Note for future maintainers:
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
