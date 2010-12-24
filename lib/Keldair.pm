@@ -85,7 +85,7 @@ sub _loop {
 
 	if ( $event->{command} eq 'PRIVMSG' ) {
 		my @args = split(' ', $event->{params});
-		if ($line =~ m/\001/) { # This is a ctcp
+		if ($line =~ m/\001/x) { # This is a ctcp
 			$event->{params} =~ s/\001//g;
 			my ($ctcp, undef) = split(' ', $event->{params});
 			my $handler = 'ctcp_'.lc($ctcp);
