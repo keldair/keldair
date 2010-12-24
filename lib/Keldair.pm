@@ -24,8 +24,8 @@ use constant {
 		      VERSION       => 2,
 		      SUBVERSION    => 2,
 		      REVISION      => 1,
-		      RELEASESTAGE  => ' ',
-		      RELEASE       => ' '
+		      RELEASESTAGE  => q{},
+		      RELEASE       => q{}
 };
 
 our $VERSION = version->declare('v2.2.1');
@@ -92,7 +92,7 @@ sub _loop {
 			if ($line =~ m/\001/x) { # This is a ctcp
 				$event->{params} =~ s/\001//g;
 				my ($ctcp, undef) = split(' ', $event->{params});
-				my $handler = 'ctcp_'.lc($ctcp);
+				$handler = 'ctcp_'.lc($ctcp);
 				foreach my $cmd (@modules) {
 					eval {
 						$cmd->$handler($event, $line);
@@ -101,7 +101,7 @@ sub _loop {
 				}
 			}
 			if (substr($args[0], 0, 1) eq config('cmdchar')) {
-				my $handler = 'cmd_'.lc($event->{command});
+				$handler = 'cmd_'.lc($event->{command});
 				foreach my $cmd (@modules) {
 					eval {
 						$cmd->$handler($event->{origin}, $event->{target}, $event->{params}, $line);
