@@ -8,6 +8,7 @@ package Keldair;
 
 use strict;
 use warnings;
+use version;
 use diagnostics -verbose;
 use Carp qw(cluck croak);
 use IO::Socket;
@@ -21,13 +22,13 @@ use Keldair::Core::Parser qw(parse_irc);
 use constant {
 	VERSIONSTRING => '2.2.1',
 		      VERSION       => 2,
-		      SUBVERSION    => 0,
-		      REVISION      => 0,
+		      SUBVERSION    => 2,
+		      REVISION      => 1,
 		      RELEASESTAGE  => ' ',
 		      RELEASE       => ' '
 };
 
-our $VERSION = Keldair::VERSIONSTRING;
+our $VERSION = version->declare('v2.2.1');
 
 # Note for future maintainers:
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
