@@ -322,7 +322,7 @@ sub back {
 }
 
 sub cjoin {
-	my $channel = @_;
+	my ($channel) = @_;
 	snd("JOIN $channel");
 	return 1;
 }

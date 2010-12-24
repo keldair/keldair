@@ -16,12 +16,9 @@ sub handle_001
 {
 	my $chans = config("channels/general");
   print "Connected to IRC!\nJoining channels: @$chans\n";
-	my $c;
-	foreach (@$chans) {
-		$c .= $_.',';
-	}
-        cjoin($c);
-	return 1;
+  my $c = join ',', @$chans;
+  cjoin($c);
+
 }
 
 1;
