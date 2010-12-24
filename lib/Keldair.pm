@@ -44,7 +44,7 @@ sub new {
 	my ($config) = $_[0];
 	$SETTINGS = Config::JSON->new($config)
 		or die("Cannot open config file!\n");
-	my $modref = $SETTINGS->get("modules");
+	my $modref = $SETTINGS->get('modules');
 	my @tmp    = @$modref;
 	foreach my $mod (@tmp) {
 		Keldair::modload($mod);
