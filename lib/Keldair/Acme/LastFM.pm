@@ -8,6 +8,8 @@ our $lastfm = Net::LastFM->new(
 	api_secret => config('lastfm/secret'),
 );
 
+our $cmdchar = config('cmdchar');
+
 sub modinit {
 	print(__PACKAGE__." loaded\n");
 	return 1;
