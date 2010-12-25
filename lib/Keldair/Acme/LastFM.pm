@@ -13,8 +13,8 @@ sub modinit {
     return 1;
 }
 
-*cmd_np      = \&cmd_lastfm;
-*cmd_playing = \&cmd_lastfm;
+*cmd_np      = \*cmd_lastfm;
+*cmd_playing = \*cmd_lastfm;
 
 sub cmd_lastfm {
     my ( $origin, $target, $params, $line ) = @_;
@@ -23,11 +23,11 @@ sub cmd_lastfm {
     my $data = $lastfm->request_signed(
         method => 'user.getRecentTracks',
         user   => $user,
-        limit  => 1,
+        limit  => 1
     );
-    msg( $target,
-"$origin->{nick} is now playing: $data->{recenttracks}->{track}->[0]->{artist}->{#text} - $data->{recenttracks}->{track}->[0]->{name}"
-    );
+    my $artist = $data->{recenttracks}->{track}->[0]->{artist}->{'#text'};
+    my $song = $data->{recenttracks}->{track}->[0]->{name};
+    msg($target, $origin->{nick}." is now playing: $artist - $song");
     return 1;
 }
 
