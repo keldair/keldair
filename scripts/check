@@ -17,7 +17,7 @@ if (!-e $ARGV[0])
   exit 0;
 }
 
-if ($ARGV[1] and $ARGV[1] =~ m/(5|4|3|2|1|gentle|stern|harsh|cruel|brutal)/x) {
+if ($ARGV[1] and $ARGV[1] =~ m/(5|4|3|2|1|gentle|stern|harsh|cruel|brutal)/xsm) {
 	$level = $ARGV[1];
 }
 else {
@@ -35,4 +35,6 @@ if (!defined $violations[0])
 }
 
 print "Violations:\n";
-print "$_\n" foreach (@violations);
+my $count = 0;
+print "$_\n" and $count++ foreach (@violations);
+print "Errors: $count\n";
