@@ -20,15 +20,15 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Keldair::Core::Parser qw(parse_irc);
 use constant {
-    VERSIONSTRING => '2.2.1',
-    VERSION       => 2,
-    SUBVERSION    => 2,
-    REVISION      => 1,
-    RELEASESTAGE  => q{},
-    RELEASE       => q{}
+    VERSIONSTRING => '3.0.0-alpha1',
+    VERSION       => 3,
+    SUBVERSION    => 0,
+    REVISION      => 0,
+    RELEASESTAGE  => q{alpha},
+    RELEASE       => 1,
 };
 
-our $VERSION = '2.2.1';
+our $VERSION = '3.0.0-alpha1';
 
 # Note for future maintainers:
 # VERSIONSTRING = Keldair::VERSION.'.'.Keldair::SUBVERSION.'.'.Keldair::REVISION.'-'.Keldair::RELEASESTAGE.Keldair::RELEASE;
